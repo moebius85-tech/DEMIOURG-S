@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "DEMIURGOS",
-  "short_name": "DEMIURGOS",
-  "description": "DEMIURGOS: gioco da tavolo dark sci-fi per 2-6 giocatori, in versione smartphone.",
+  "name": "DEMIOURGÓS",
+  "short_name": "DEMIOURGÓS",
+  "description": "DEMIOURGÓS: gioco da tavolo dark sci-fi per 2-6 giocatori, in versione smartphone.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "fullscreen",
