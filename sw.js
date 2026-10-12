@@ -1,5 +1,5 @@
-// AETERNA – service worker: prima la rete (così gli aggiornamenti arrivano), poi la copia salvata (funziona anche senza connessione)
-const V = 'aeterna-v1';
+// DEMIURGOS – service worker: prima la rete (così gli aggiornamenti arrivano), poi la copia salvata (funziona anche senza connessione)
+const V = 'demiurgos-v2';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', e => {
   self.skipWaiting();

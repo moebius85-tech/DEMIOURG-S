@@ -1,19 +1,37 @@
 {
   "id": "./",
-  "name": "AETERNA – Il Relitto dell'Abisso",
-  "short_name": "AETERNA",
-  "description": "Gioco da tavolo dark sci-fi per 2-6 giocatori, in versione smartphone.",
+  "name": "DEMIURGOS",
+  "short_name": "DEMIURGOS",
+  "description": "DEMIURGOS: gioco da tavolo dark sci-fi per 2-6 giocatori, in versione smartphone.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "fullscreen",
-  "display_override": ["fullscreen", "standalone"],
+  "display_override": [
+    "fullscreen",
+    "standalone"
+  ],
   "orientation": "any",
-  "background_color": "#070b0c",
-  "theme_color": "#070b0c",
+  "background_color": "#000000",
+  "theme_color": "#05090a",
   "lang": "it",
   "icons": [
-    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
-    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
-    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }
