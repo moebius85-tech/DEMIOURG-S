@@ -1,5 +1,5 @@
 // DEMIOURGÓS – service worker: pagina = prima la rete (arrivano gli aggiornamenti), poi la copia salvata; clip animate = prima la copia salvata (istantanee)
-const V = 'demiurgos-v15', CC = 'demiurgos-clips';
+const V = 'demiurgos-v16', CC = 'demiurgos-clips';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 const CLIPS = ['dmg', 'stress', 'down', 'down_s', 'mdie', 'mdie_s', 'atk', 'atk_s', 'mdie2_4'].map(n => './clips/' + n + '.webp');
 self.addEventListener('install', e => {
