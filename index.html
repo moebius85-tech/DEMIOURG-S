@@ -314,7 +314,7 @@ const gl=el.querySelector('.glow');gl.style.top=(top-hh*0.05)+'px';gl.style.heig
 const nm=w&&w.l!=null?LVN[w.l]:(w&&CH[w.i]?CH[w.i].n:''),T={dmg:['#ff8f86','subisce danno'],stress:['#c9a0ff','è sotto Stress'],down:['#ff5a4d','è a terra: ferita mortale!'],atk:['#7ffff0','attacca'],mdie:['#ffd24a','sconfitto!']}[bk];
 const cp=el.querySelector('.cap');cp.style.top=(top+hh-8)+'px';cp.innerHTML='<span style="color:'+T[0]+'">'+nm+'</span> <span style="font-weight:500;font-size:13px;color:#dff">'+T[1]+'</span>';
 el.style.display='block';im.src=a.u;const end=()=>{clearTimeout(CTM);el.style.display='none';im.removeAttribute('src');CBZ=0;setTimeout(cNext,100)};CTM=setTimeout(end,a.ms+250);el.onclick=end}catch(e){CBZ=0;}}
-const animFor=m=>MA[m.l+'_'+m.c]||MA.def;let SCT=[];
+MA['1_5']={"full": {"fe": 1, "u": "clips/atkm_1_5.webp", "ms": 4670, "hit": 2840}, "short": {"fe": 1, "u": "clips/atkm_1_5_s.webp", "ms": 2630, "hit": 800}};(function(){const go=()=>['full','short'].forEach(w=>{const o=MA['1_5'][w];fetch(o.u).then(r=>r.ok?r.blob():Promise.reject()).then(b=>{o.u=URL.createObjectURL(b);const i=new Image();i.src=o.u;(window._ck=window._ck||[]).push(i)}).catch(()=>{})});try{addEventListener('load',()=>setTimeout(go,1800))}catch(e){}})();const animFor=m=>MA[m.l+'_'+m.c]||(Math.random()<.5?MA.def:MA['1_5']);let SCT=[];
 function preloadScene(){try{[MA.def.full.u,MA.def.short.u].forEach(x=>{const i=new Image();i.src=x})}catch(e){}}
 function scEnd(done){SCT.forEach(clearTimeout);SCT=[];const sc=document.getElementById('sc');if(sc)sc.style.display='none';const im=document.getElementById('scm');if(im)im.removeAttribute('src');if(done)done()}
 function playScene(info,done){const sc=document.getElementById('sc');if(!sc||!fxOn||!info){done();return}
@@ -322,7 +322,7 @@ const A=animFor(info.m),key=info.m.l+'_'+info.m.c;G.sm=G.sm||{};const first=!G.s
 const hh=Math.round(innerWidth*0.75),top=Math.round((innerHeight-hh)/2),old=document.getElementById('scm'),im=document.createElement('img');im.id='scm';im.alt='';im.style.top=top+'px';old.replaceWith(im);
 const gl=sc.querySelector('.glow');gl.style.top=(top+hh*0.35)+'px';gl.style.height=(innerWidth*0.62)+'px';sc.querySelector('.cap').style.top=(top+hh+2)+'px';
 sc.querySelector('.cap').innerHTML='<span style="color:#ffb27a">'+LVN[info.m.l]+'</span><br><span style="font-weight:500;font-size:13px;color:#dff">attacca '+info.names.join(', ')+(info.n>1?' (+'+(info.n-1)+')':'')+'</span>';
-sc.style.display='block';im.src=a.u;snd('growl');let ended=false;const end=()=>{if(ended)return;ended=true;scEnd(done)};
+if(a.fe){const g='linear-gradient(to bottom,transparent,#000 8%,#000 92%,transparent),linear-gradient(to left,transparent,#000 7%)';im.style.webkitMaskImage=g;im.style.maskImage=g;im.style.webkitMaskComposite='source-in';im.style.maskComposite='intersect'}sc.style.display='block';im.src=a.u;snd('growl');let ended=false;const end=()=>{if(ended)return;ended=true;scEnd(done)};
 SCT.push(setTimeout(()=>{if(!ended){shake();flash('255,110,40');snd('kill')}},a.hit),setTimeout(end,a.ms+350));
 sc.onclick=end;sc.querySelector('.skip').onclick=e=>{e.stopPropagation();end()}}
 let wlOn=(()=>{try{return localStorage.getItem('aeterna_wl')!='0'}catch(e){return true}})(),WLS=null;
