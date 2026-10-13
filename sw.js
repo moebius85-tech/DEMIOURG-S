@@ -1,18 +1,32 @@
-// DEMIURGOS – service worker: prima la rete (così gli aggiornamenti arrivano), poi la copia salvata (funziona anche senza connessione)
-const V = 'demiurgos-v14';
+// DEMIOURGÓS – service worker: pagina = prima la rete (arrivano gli aggiornamenti), poi la copia salvata; clip animate = prima la copia salvata (istantanee)
+const V = 'demiurgos-v15', CC = 'demiurgos-clips';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
+const CLIPS = ['dmg', 'stress', 'down', 'down_s', 'mdie', 'mdie_s', 'atk', 'atk_s', 'mdie2_4'].map(n => './clips/' + n + '.webp');
 self.addEventListener('install', e => {
   self.skipWaiting();
-  e.waitUntil(caches.open(V).then(c => c.addAll(FILES)).catch(() => {}));
+  e.waitUntil(Promise.all([
+    caches.open(V).then(c => c.addAll(FILES)).catch(() => {}),
+    caches.open(CC).then(c => Promise.all(CLIPS.map(u => c.add(u).catch(() => {})))).catch(() => {})
+  ]));
 });
 self.addEventListener('activate', e => {
-  e.waitUntil(caches.keys().then(k => Promise.all(k.filter(x => x !== V).map(x => caches.delete(x)))).then(() => self.clients.claim()));
+  e.waitUntil(caches.keys().then(k => Promise.all(k.filter(x => x !== V && x !== CC).map(x => caches.delete(x)))).then(() => self.clients.claim()));
 });
 self.addEventListener('fetch', e => {
   const r = e.request;
   if (r.method !== 'GET') return;
   const u = new URL(r.url);
   if (u.origin !== location.origin) return;
+  if (u.pathname.includes('/clips/')) {
+    e.respondWith((async () => {
+      const c = await caches.open(CC), m = await c.match(r);
+      if (m) return m;
+      const n = await fetch(r);
+      if (n && n.ok) c.put(r, n.clone());
+      return n;
+    })());
+    return;
+  }
   e.respondWith((async () => {
     const c = await caches.open(V);
     try {
