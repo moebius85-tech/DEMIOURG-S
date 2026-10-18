@@ -1,5 +1,5 @@
 // DEMIOURGÓS – service worker: pagina = prima la rete (arrivano gli aggiornamenti), poi la copia salvata; clip animate = prima la copia salvata (istantanee)
-const V = 'demiurgos-v30', CC = 'demiurgos-clips7';
+const V = 'demiurgos-v38', CC = 'demiurgos-clips7';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 const CLIPS = ['G_archeologo_att','G_ingegnere_att','G_ingegnere_dmg','G_ingegnere_down','G_ingegnere_stress','G_scienziato_att','G_sicurezza_att','S_guardiano-risveglio','S_totem-attivato'].map(n => './clips/' + n + '.webp');
 self.addEventListener('install', e => {
@@ -17,6 +17,7 @@ self.addEventListener('fetch', e => {
   if (r.method !== 'GET') return;
   const u = new URL(r.url);
   if (u.origin !== location.origin) return;
+  if (/\.(mp4|mp3|m4a)$/i.test(u.pathname)) return; // video: niente cache del service worker (servono le richieste a intervalli)
   if (u.pathname.includes('/clips/')) {
     e.respondWith((async () => {
       const c = await caches.open(CC), m = await c.match(r,{ignoreSearch:true});
