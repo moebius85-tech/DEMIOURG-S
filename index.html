@@ -7,18 +7,16 @@ body{background:var(--bg);color:var(--fg);font:14px/1.35 system-ui,sans-serif;di
 #h{padding:8px 10px;background:var(--cd);border-bottom:1px solid var(--bd)}#h b{color:var(--ac)}.m{color:var(--mu);font-size:12px}
 #mw{position:relative;flex:1;min-height:0;overflow:hidden}#map{width:100%;height:100%;display:block;touch-action:none}#zb{position:absolute;right:6px;top:6px;display:flex;flex-direction:column;gap:6px}#zb button{width:44px;height:44px;border-radius:50%;padding:0;font-size:20px;background:rgba(10,20,22,.82);color:#fff}@keyframes bl{0%,100%{opacity:1}50%{opacity:.15}}.blink{animation:bl 1s infinite}
 /*EPC_BEGIN*/
-#ep{position:fixed;inset:0;z-index:15;display:none;background:#000;overflow:hidden;-webkit-tap-highlight-color:transparent;user-select:none;touch-action:manipulation;font-family:system-ui,sans-serif}
+#ep{position:fixed;inset:0;z-index:17;display:none;background:#000;overflow:hidden;-webkit-tap-highlight-color:transparent;user-select:none;touch-action:manipulation;font-family:system-ui,sans-serif}
 #ep *{box-sizing:border-box}
 #ep .epl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#7ffff0;font:700 13px ui-monospace,Menlo,monospace;letter-spacing:4px;text-transform:uppercase;animation:bl 1.2s infinite}
 #ep .epp{position:absolute;left:3%;right:3%;top:3.2%;bottom:3.2%;z-index:1;border:5px solid #000;border-radius:6px;box-shadow:0 0 0 3px #f4fbfa,8px 10px 0 3px #3fe0c5,0 0 60px rgba(63,224,197,.25);animation:eppin .55s cubic-bezier(.2,1.3,.3,1) both}
 #ep .epp.bump{animation:epbump .5s ease-out}
 #ep .epb{position:absolute;inset:0;overflow:hidden;background:#02080a;border-radius:2px}
-#ep .epz{position:absolute;inset:-4%;animation:epkb 15s linear forwards;transition:filter .9s}
+#ep .epz{position:absolute;inset:-4%;animation:epkb 15s linear forwards;will-change:transform;backface-visibility:hidden}
 #ep .eb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s}
 #ep .eb.on{opacity:1}
-#ep .epb.gold .epz{filter:sepia(.5) saturate(1.7) hue-rotate(-20deg) brightness(1.18)}
-#ep .epb.dk .epz{filter:brightness(.55) saturate(.55)}
-#ep .epg{position:absolute;inset:0;opacity:0;transition:opacity .6s;background:radial-gradient(70% 55% at 50% 50%,rgba(255,236,160,.75),rgba(255,170,40,.28) 55%,transparent 80%);mix-blend-mode:screen}
+#ep .epg{position:absolute;inset:0;opacity:0;transition:opacity .6s;background:radial-gradient(70% 55% at 50% 50%,rgba(255,226,130,.7),rgba(255,160,30,.32) 55%,rgba(255,150,30,.12) 85%)}
 #ep .epg.on{opacity:1}
 #ep .epd{position:absolute;inset:0;opacity:0;transition:opacity .7s;background:radial-gradient(90% 70% at 50% 46%,rgba(0,4,8,.5),rgba(0,3,6,.82))}
 #ep .epd.on{opacity:1}
@@ -37,12 +35,11 @@ body{background:var(--bg);color:var(--fg);font:14px/1.35 system-ui,sans-serif;di
 #ep .epa.up i{left:46%;bottom:-14px}
 #ep .epa.rt i{right:14%;bottom:-14px}
 #ep .epa b{color:#c4160a}
-#ep .epc0{position:absolute;z-index:4;pointer-events:none;opacity:0}
+#ep .epc0{position:absolute;z-index:4;pointer-events:none;opacity:0;will-change:transform,opacity;backface-visibility:hidden}
 #ep .epc0 img{display:block;width:100%;height:100%;border-radius:8px}
 #ep .epc0.en img{box-shadow:0 10px 40px rgba(0,0,0,.85),0 0 40px rgba(255,200,90,.35)}
 #ep .en.in{animation:epen 1.1s cubic-bezier(.2,.9,.2,1) forwards}
 #ep .en.dim{opacity:.35!important;filter:brightness(.6);transition:opacity .7s,filter .7s}
-#ep .ei{mix-blend-mode:screen}
 #ep .ei.in{animation:epei .85s cubic-bezier(.15,.9,.2,1) forwards}
 #ep .ei.pulse img{animation:epps .9s ease-in-out infinite alternate}
 #ep .el.in{animation:epel .85s cubic-bezier(.15,.9,.2,1) forwards}
@@ -499,14 +496,15 @@ T.push(setTimeout(()=>{snd('growl')},o.pre||99999),setTimeout(()=>{if(o.sh!==0)s
 im.onload=()=>DEC(im).then(run);im.onerror=end;im.src=fu(o.u);T.push(setTimeout(()=>{if(!go)end()},30000));el.onclick=end}catch(e){GDB=0;done()}}
 let CQ=[],CBZ=0,CTM=0;
 function clip(k,w){try{if(k=='mdie'&&w&&w.l!=null){const dk='mdie'+w.l+'_'+w.c;k=CL[dk]?dk:DK[Math.floor(Math.random()*DK.length)]}if(k=='atk'&&w&&CH[w.i]&&CL['atk_'+CH[w.i].k.slice(0,3)])k='atk_'+CH[w.i].k.slice(0,3);if(!fxOn||!CL[k]||typeof document=='undefined'||!G)return;if(CQ.some(x=>x[0]==k)||CQ.length>=2)return;CQ.push([k,w]);setTimeout(cNext,220)}catch(e){}}
-function uiBusy(){try{const d=i=>{const e=document.getElementById(i);return !!e&&getComputedStyle(e).display!='none'};return !!(CVB||FXHOLD||(PQC&&PQC.length)||d('cv')||d('ov')||d('gd')||d('sv'))}catch(e){return false}}
+function uiBusy(){try{const d=i=>{const e=document.getElementById(i);return !!e&&getComputedStyle(e).display!='none'};return !!(CVB||FXHOLD||(PQC&&PQC.length)||d('cv')||d('ov')||d('gd')||d('sv')||d('ep'))}catch(e){return false}}
 function pingTile(q,r){try{if(!G||q==null)return;let P=fxPos(q,r);const W=innerWidth,H=innerHeight;if(!P||P[0]<30||P[0]>W-30||P[1]<90||P[1]>H-150){const[cx,cy]=px(q,r);setView(cx,cy,(G.vcur&&G.vcur[2])||260);P=fxPos(q,r)}if(!P)return;document.querySelectorAll('.png').forEach(e=>e.remove());const d=document.createElement('div');d.className='png';d.style.left=P[0]+'px';d.style.top=P[1]+'px';d.style.setProperty('--r',Math.round(P[2]*38)+'px');d.innerHTML='<i></i><i></i><i></i><b>▼</b>';document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}catch(e){}}
 const HOLES=[[[0.217, 0.6343, 0.1167], [0.2227, 0.8463, 0.1036]], [[0.4963, 0.6339, 0.1172], [0.4973, 0.8457, 0.1041]], [[0.7708, 0.6347, 0.1167], [0.7571, 0.8446, 0.1027]], [[0.22, 0.19, 0.1028], [0.2173, 0.4028, 0.1161]], [[0.4948, 0.1891, 0.1028], [0.4934, 0.4029, 0.1163]], [[0.7494, 0.1892, 0.102], [0.764, 0.4026, 0.1158]]];
 /*EP_BEGIN*/
 const EPU=['hr/ep0.webp','hr/ep1.webp','hr/ep2.webp','hr/ep3.webp','hr/ep4.webp'];let EPR=null;
 function epLoad(){if(EPR)return EPR;EPR=Promise.all(EPU.map(u=>new Promise(res=>{const im=new Image();im.onload=()=>{try{(im.decode?im.decode():Promise.resolve()).catch(()=>{}).then(()=>res(im))}catch(e){res(im)}};im.onerror=()=>res(null);im.src=u})));return EPR}
 (function(){const t=setInterval(()=>{try{if(typeof G!='undefined'&&G){clearInterval(t);setTimeout(epLoad,40000)}}catch(e){}},3000)})();
-function scanAnim(o,done){let fin=false;const once=()=>{if(fin)return;fin=true;try{done()}catch(e){}};
+function scanAnim(o,done){const vis=i=>{const e=document.getElementById(i);return !!e&&getComputedStyle(e).display!='none'};if(fxOn&&(CBZ||FXHOLD||vis('cl')||vis('sc')||vis('cv'))&&(o._w=(o._w||0)+1)<32){setTimeout(()=>scanAnim(o,done),250);return}
+let fin=false;const once=()=>{if(fin)return;fin=true;try{done()}catch(e){}};
 try{if(!fxOn){once();return}
 let el=document.getElementById('ep');if(!el){el=document.createElement('div');el.id='ep';document.body.appendChild(el)}
 el.className='';el.style.display='block';el.onclick=null;el.innerHTML='<div class=epl>Il Totem si risveglia…</div>';
@@ -566,9 +564,9 @@ at(tL,()=>{q('.el').classList.add('in');cap('La Lente si sovrappone all\'Enigma�
 at(tL+640,()=>{q('.epx').classList.add('cr');bump();SH();S('hit');shards(W*.96,H*.62,12);ono('CLANG!','46%','24%',7,'#7ffff0');vib([50,30,50]);burst(W*.95,H*.62,30,VI,300)});
 at(tS,()=>{q('.eq').classList.add('on');rings();S('click');cap('I cerchi forati devono coincidere!');TN(110,1.35,'sawtooth',.05,980);TN(220,1.3,'triangle',.04,1900,.05);NZ(1.2,.05,3200)});
 if(ok&&win){
- at(tV,()=>{rings('ok');q('.epg').classList.add('on');q('.epb').classList.add('gold');F('255,215,100');S('win');S('cube');SH();vib([30,40,30,40,160]);burst(cx,cy,90,GOLD,420);bump();ono('ZAAAP!','28%','12%',-6,'#ffe27a');cap('COINCIDONO!');bal('.epa.up','…<b>impossibile</b>. Hai letto il mio enigma!')});
+ at(tV,()=>{rings('ok');q('.epg').classList.add('on');F('255,215,100');S('win');S('cube');SH();vib([30,40,30,40,160]);burst(cx,cy,90,GOLD,420);bump();ono('ZAAAP!','28%','12%',-6,'#ffe27a');cap('COINCIDONO!');bal('.epa.up','…<b>impossibile</b>. Hai letto il mio enigma!')});
  at(tV+1100,()=>{unbal('.epa.up');q('.el').classList.add('gone');q('.ei').classList.add('gone');q('.en').classList.add('dim');q('.epr').classList.add('on');S('kill');burst(cx,cy,80,GOLD,380,-40);epic('Runa: '+rn,'Archiviata nel Codice · Lente e frammenti sacrificati','#ffd24a');cap('Un solo glifo resta acceso')});
- at(tV+3700,()=>{q('.epg').classList.remove('on');q('.epb').classList.remove('gold');q('.epb').classList.add('dk');bg(0);q('.en').classList.add('gone');bal('.epa.rt','Bravo, mortale. <b>E bravo anche tu</b>, dietro lo schermo…');cap('Totem '+tn+' · decifrato');q('.epd').classList.remove('on')});
+ at(tV+3700,()=>{q('.epg').classList.remove('on');bg(0);q('.en').classList.add('gone');bal('.epa.rt','Bravo, mortale. <b>E bravo anche tu</b>, dietro lo schermo…');cap('Totem '+tn+' · decifrato')});
  at(tV+4600,fin)}
 else if(ok){
  at(tV,()=>{rings('ok');S('win');F('255,215,100')});
@@ -643,7 +641,11 @@ function Fx2(t,q,r,q2,r2){snd('hit');if(fxOn)FXQ.push([t,q,r,'',q2,r2])}
 const FXR={prisma:'nova',sguardo:'gaze',compasso:'sanct',imploso:'quake',proiet:'void',frattale:'blood',decim:'blood',frammento:'annih',anima:'sanct',campoD:'stun',campoT:'stun',soppT:'stun'};
 function fxAtk(p,m,w,e){const t={lama:'slash',motosega:'chain',maglio:'heavy',lancia:'push',fucrs:'tracer',schegge:'tracer'}[w]||'slash';Fx2(t,p.q,p.r,m.q,m.r);if(e.ok&&e.x==2)Fx('golden',m.q,m.r)}
 const spore=a=>({x:Math.random()*innerWidth,y:a?Math.random()*innerHeight:innerHeight+10,vx:(Math.random()-.5)*.25,vy:-.15-Math.random()*.35,l:9e9,m:9e9,c:'120,255,230',s:1+Math.random()*1.8,amb:1,al:.1+Math.random()*.2});
-function shake(){if(!fxOn)return;try{navigator.vibrate&&navigator.vibrate([25,15,35])}catch(e){}document.body.classList.remove('shk');void document.body.offsetWidth;document.body.classList.add('shk')}
+function shake(){if(!fxOn)return;try{navigator.vibrate&&navigator.vibrate([25,15,35])}catch(e){}
+const KF=[{translate:'0 0'},{translate:'-6px 3px'},{translate:'6px -3px'},{translate:'-4px -2px'},{translate:'4px 3px'},{translate:'0 0'}],tg=[];
+['mw','h'].forEach(i=>{const e=document.getElementById(i);if(e)tg.push(e)});
+['cl','sc','cv','sv','ep','gd','ov'].forEach(i=>{const e=document.getElementById(i);if(e&&getComputedStyle(e).display!='none')for(const c of e.children)tg.push(c)});
+tg.forEach(e=>{try{e.animate(KF,{duration:340,easing:'ease-out'})}catch(x){}})}
 function flash(c){if(!fxOn)return;const f=document.getElementById('fl');if(!f)return;f.style.background='radial-gradient(circle,rgba(0,0,0,0) 40%,rgba('+c+',.6) 100%)';f.classList.remove('on');void f.offsetWidth;f.classList.add('on')}
 function fxInit(){const cv=document.getElementById('fx');if(!cv||!cv.getContext)return;fxCx=cv.getContext('2d');const rs=()=>{const d=Math.min(window.devicePixelRatio||1,2);cv.width=innerWidth*d;cv.height=innerHeight*d;fxCx.setTransform(d,0,0,d,0,0)};rs();addEventListener('resize',rs);for(let i=0;i<24;i++)FXP.push(spore(true));fxLoop()}
 function fxLoop(){const c=fxCx;if(!c)return;requestAnimationFrame(fxLoop);c.clearRect(0,0,innerWidth,innerHeight);if(!fxOn||document.hidden)return;
@@ -819,8 +821,12 @@ A.zoom=d=>{const z=document.getElementById('zv'),nm=AS['Z'+d.z]?'Z'+d.z:d.z,im=d
 (function(){const HK=["N1d", "N1l", "N2d", "N2l", "N3d", "N3l", "N4d", "N4l", "N5d", "N5l", "N6d", "N6l", "N7d", "N7l", "S01d", "S01l", "S02d", "S02l", "S03d", "S03l", "S04d", "S04l", "S06d", "S06l", "S07d", "S07l", "S09d", "S09l", "S10d", "S10l", "S11d", "S11l", "S12d", "S12l", "S13d", "S13l", "S14d", "S14l", "S15d", "S15l", "S17d", "S17l", "S18d", "S18l", "S19d", "S19l", "S20d", "S20l", "S21d", "S21l", "S22d", "S22l", "S23d", "S23l", "S24d", "S24l", "S25d", "S25l", "S26d", "S26l", "S27d", "S27l", "S28d", "S28l", "S29d", "S29l", "S30d", "S30l", "S31d", "S31l", "S32d", "S32l", "S33d", "S33l", "S34d", "S34l", "S35d", "S35l", "S37d", "S37l", "S38d", "S38l", "S39d", "S39l", "S40d", "S40l", "SORGd", "SORGl", "T1d", "T1l", "T2d", "T2l", "T3d", "T3l", "T4d", "T4l", "TOTEM1d", "TOTEM1l", "TOTEM2d", "TOTEM2l", "TOTEM3d", "TOTEM3l", "TOTEM4d", "TOTEM4l", "TOTEM5d", "TOTEM5l", "TOTEM6d", "TOTEM6l", "bk_ar", "bk_chi", "bk_fr", "bk_med", "bk_tec", "bk_upg", "c1", "c2", "c3", "c4", "c5", "c6", "d1", "d2", "d3", "d4", "d5", "d6", "e0", "e1", "e10", "e11", "e12", "e13", "e14", "e15", "e16", "e17", "e18", "e19", "e2", "e20", "e21", "e22", "e23", "e24", "e25", "e26", "e27", "e28", "e29", "e3", "e30", "e31", "e32", "e33", "e34", "e35", "e36", "e37", "e38", "e39", "e4", "e40", "e41", "e42", "e43", "e44", "e45", "e46", "e47", "e48", "e49", "e5", "e50", "e6", "e7", "e8", "e9", "eco", "farcheologo", "fingegnere", "fmilitare", "fparamedico", "fscienziato", "fsicurezza", "g1", "g2", "g3", "g4", "g5", "g6", "kC", "kF", "kQ", "kS", "l0", "l1", "l2", "l3", "l4", "l5", "m1_0", "m1_1", "m1_2", "m1_3", "m1_4", "m1_5", "m2_0", "m2_1", "m2_2", "m2_3", "m2_4", "m2_5", "m3_0", "m3_1", "m3_2", "m3_3", "m3_4", "m3_5", "m4_0", "m4_1", "m4_2", "m4_3", "m4_4", "m4_5", "n0", "n1", "n2", "n3", "n4", "n5", "ombra", "r1", "r2", "r3", "r4", "r5", "r6", "rback", "rolN", "rolS", "tarcheologo", "tingegnere", "tmilitare", "tparamedico", "tscienziato", "tsicurezza", "xC0", "xC1", "xC2", "xC3", "xC4", "xC5", "xC6", "xC7", "xC8", "xF0", "xF1", "xF2", "xF3", "xF4", "xF5", "xF6", "xF7", "xF8", "xQ0", "xQ1", "xQ2", "xQ3", "xQ4", "xQ5", "xQ6", "xQ7", "xQ8", "xS0", "xS1", "xS10", "xS11", "xS12", "xS13", "xS14", "xS15", "xS16", "xS17", "xS2", "xS3", "xS4", "xS5", "xS6", "xS7", "xS8", "xS9"],old=new Map();window._asOld=old;
 const TL=/^(S\d\d|T\d|SORG|TOTEM\d|N\d)[ld]$/,pri=k=>TL.test(k)?0:/^(f|t)[a-z]{5}|^(d\d|eco|ombra|r\d|g\d|c\d)$/.test(k)?1:2;
 const q=HK.slice().sort((a,b)=>pri(a)-pri(b));let act=0,fin=0,st=0;
-const swap=(k,u)=>{for(const o of [IMG,AS]){const ov=o[k];if(ov&&ov!==u){old.set(ov,k);o[k]=u;try{document.querySelectorAll('img').forEach(i=>{if(i.src===ov)i.src=u});document.querySelectorAll('image').forEach(i=>{if(i.getAttribute('href')===ov)i.setAttribute('href',u)})}catch(e){}}}};
-const soft=()=>{try{if(G&&!uiBusy()&&!document.body.classList.contains('inmenu'))render()}catch(e){}};
+const fxA=()=>{try{if(CBZ||FXHOLD||CVB)return true;return ['cl','sc','cv','sv','ep','gd','cine'].some(i=>{const e=document.getElementById(i);return !!e&&getComputedStyle(e).display!='none'})}catch(e){return false}};
+const pend=[];let need=0;window._hrPend=()=>pend.length;
+const dom=(ov,u)=>{try{document.querySelectorAll('img').forEach(i=>{if(i.src===ov)i.src=u});document.querySelectorAll('image').forEach(i=>{if(i.getAttribute('href')===ov)i.setAttribute('href',u)})}catch(e){}};
+const swap=(k,u)=>{for(const o of [IMG,AS]){const ov=o[k];if(ov&&ov!==u){old.set(ov,k);o[k]=u;if(fxA())pend.push([ov,u]);else dom(ov,u)}}};
+const soft=()=>{if(fxA()){need=1;return}try{if(G&&!uiBusy()&&!document.body.classList.contains('inmenu'))render()}catch(e){}};
+setInterval(()=>{if(fxA())return;let n=0;while(pend.length&&n++<20){const a=pend.shift();dom(a[0],a[1])}if(!pend.length&&need){need=0;soft()}},500);
 const pump=()=>{while(act<3&&q.length){const k=q.shift();act++;fetch('hr/'+k+'.webp').then(r=>r.ok?r.blob():Promise.reject()).then(b=>{swap(k,URL.createObjectURL(b))}).catch(()=>{}).then(()=>{act--;fin++;if(!q.length&&!act){soft()}else if(fin%40==0)soft();pump()})}};
 const go=()=>{if(st)return;st=1;try{if(navigator.connection&&navigator.connection.saveData)return}catch(e){}pump()};
 const iv=setInterval(()=>{if(typeof G!='undefined'&&G){clearInterval(iv);setTimeout(go,1500)}},1000);
