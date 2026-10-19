@@ -1,5 +1,5 @@
 // DEMIOURGÓS – service worker: pagina = prima la rete (arrivano gli aggiornamenti), poi la copia salvata; clip animate = prima la copia salvata (istantanee)
-const V = 'demiurgos-v45', CC = 'demiurgos-clips10';
+const V = 'demiurgos-v47', CC = 'demiurgos-clips10';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 const CLIPS = ['G_archeologo_att','G_ingegnere_att','G_ingegnere_dmg','G_ingegnere_down','G_ingegnere_stress','G_scienziato_att','G_sicurezza_att','S_guardiano-risveglio','S_totem-attivato'].map(n => './clips/' + n + '.webp');
 self.addEventListener('install', e => {
@@ -31,7 +31,7 @@ self.addEventListener('fetch', e => {
   e.respondWith((async () => {
     const c = await caches.open(V);
     try {
-      const n = await fetch(r);
+      const n = await fetch(r, {cache: 'no-cache'});
       if (n && n.ok) c.put(r, n.clone());
       return n;
     } catch (x) {
