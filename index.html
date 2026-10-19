@@ -507,17 +507,17 @@ function uiBusy(){try{const d=i=>{const e=document.getElementById(i);return !!e&
 function pingTile(q,r){try{if(!G||q==null)return;let P=fxPos(q,r);const W=innerWidth,H=innerHeight;if(!P||P[0]<30||P[0]>W-30||P[1]<90||P[1]>H-150){const[cx,cy]=px(q,r);setView(cx,cy,(G.vcur&&G.vcur[2])||260);P=fxPos(q,r)}if(!P)return;document.querySelectorAll('.png').forEach(e=>e.remove());const d=document.createElement('div');d.className='png';d.style.left=P[0]+'px';d.style.top=P[1]+'px';d.style.setProperty('--r',Math.round(P[2]*38)+'px');d.innerHTML='<i></i><i></i><i></i><b>▼</b>';document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}catch(e){}}
 const HOLES=[[[0.217, 0.6343, 0.1167], [0.2227, 0.8463, 0.1036]], [[0.4963, 0.6339, 0.1172], [0.4973, 0.8457, 0.1041]], [[0.7708, 0.6347, 0.1167], [0.7571, 0.8446, 0.1027]], [[0.22, 0.19, 0.1028], [0.2173, 0.4028, 0.1161]], [[0.4948, 0.1891, 0.1028], [0.4934, 0.4029, 0.1163]], [[0.7494, 0.1892, 0.102], [0.764, 0.4026, 0.1158]]];
 /*EP_BEGIN*/
-const EPU=['hr/ep0.webp','hr/ep1.webp','hr/ep2.webp','hr/ep3.webp','hr/ep4.webp'];let EPR=null;
-function epLoad(){if(EPR)return EPR;EPR=Promise.all(EPU.map(u=>new Promise(res=>{const im=new Image();im.onload=()=>{try{(im.decode?im.decode():Promise.resolve()).catch(()=>{}).then(()=>res(im))}catch(e){res(im)}};im.onerror=()=>res(null);im.src=u})));return EPR}
-(function(){const t=setInterval(()=>{try{if(typeof G!='undefined'&&G){clearInterval(t);setTimeout(epLoad,40000)}}catch(e){}},3000)})();
+const EPS={0:'t0',2:'t2',5:'t5'};const epU=s=>{const p=EPS[s];return [0,1,2,3,4].map(i=>p?'hr/'+p+'_'+i+'.webp':'hr/ep'+i+'.webp')};let EPR={},EPK=null;
+function epLoad(s){const p=EPS[s]||'g';if(EPR[p])return EPR[p];if(EPK&&EPK!=p)delete EPR[EPK];EPK=p;const ex=p=='t5'?[1]:[];EPR[p]=Promise.all(epU(s).map((u,i)=>ex.indexOf(i)>=0?Promise.resolve(null):new Promise(res=>{const im=new Image();im.onload=()=>{try{(im.decode?im.decode():Promise.resolve()).catch(()=>{}).then(()=>res(im))}catch(e){res(im)}};im.onerror=()=>res(null);im.src=u})));return EPR[p]}
+(function(){const t=setInterval(()=>{try{if(typeof G!='undefined'&&G){clearInterval(t);setTimeout(()=>{const us=[];[0,2,5,3].forEach(s=>epU(s).forEach(u=>us.push(u)));const nx=()=>{const u=us.shift();if(!u)return;fetch(u).catch(()=>{}).then(()=>setTimeout(nx,2500))};nx()},40000)}}catch(e){}},3000)})();
 function scanAnim(o,done){const vis=i=>{const e=document.getElementById(i);return !!e&&getComputedStyle(e).display!='none'};if(fxOn&&(CBZ||FXHOLD||vis('cl')||vis('sc')||vis('cv'))&&(o._w=(o._w||0)+1)<32){setTimeout(()=>scanAnim(o,done),250);return}
 let fin=false;const once=()=>{if(fin)return;fin=true;try{done()}catch(e){}};
 try{if(!fxOn){once();return}
 let el=document.getElementById('ep');if(!el){el=document.createElement('div');el.id='ep';document.body.appendChild(el)}
 el.className='';el.style.display='block';el.onclick=null;el.innerHTML='<div class=epl>Il Totem si risveglia…</div>';
-let st=0;const fb=()=>{el.style.display='none';el.innerHTML='';EPR=null;try{scanAnimOld(o,once)}catch(e){once()}};
-const to=setTimeout(()=>{if(st)return;st=1;fb()},6000);
-epLoad().then(im=>{if(st)return;clearTimeout(to);if(!im[0]||!im[1]){st=1;fb();return}st=2;try{epRun(el,o,im,once)}catch(e){try{console.log(e)}catch(_){}el.style.display='none';el.innerHTML='';try{scanAnimOld(o,once)}catch(e2){once()}}})}catch(e){try{scanAnimOld(o,once)}catch(e2){once()}}}
+let st=0;const fb=()=>{el.style.display='none';el.innerHTML='';EPR={};try{scanAnimOld(o,once)}catch(e){once()}};
+const to=setTimeout(()=>{if(st)return;st=1;fb()},9000);
+epLoad(o.s).then(im=>{if(st)return;clearTimeout(to);if(!im[0]){st=1;fb();return}st=2;try{epRun(el,o,im,once)}catch(e){try{console.log(e)}catch(_){}el.style.display='none';el.innerHTML='';try{scanAnimOld(o,once)}catch(e2){once()}}})}catch(e){try{scanAnimOld(o,once)}catch(e2){once()}}}
 function epRun(el,o,im,done){const W=innerWidth,H=innerHeight,s=o.s,ok=!!o.ok,win=!!o.win,tn=s+1;
 const cw=Math.round(Math.min(W*.62,H*.294,300)),ch=Math.round(cw*273/191),cx=W/2,cy=H*.46,L=Math.round(cx-cw/2),T=Math.round(cy-ch/2);
 const Hs=HOLES[o.lensS]||[];
@@ -537,7 +537,7 @@ el.innerHTML=`<div class=epp><div class=epb><div class=epz>${[0,1,2,3,4].map(i=>
 <div class=epo></div><div class=epe></div><button class=eps>Salta ▸▸</button><div class=eph>Tocca per continuare</div>`;
 const q=s=>el.querySelector(s),qa=s=>[...el.querySelectorAll(s)];
 const bgs=qa('.eb');im.forEach((m,i)=>{if(m)bgs[i].src=m.src});let zb=1;
-const have=i=>im[i]?i:(i==4?(im[3]?3:2):i==3?2:i==2?1:i);
+const have=i=>{while(i>0&&!im[i])i--;return i};
 const bg=i=>{i=have(i);const n=bgs[i];n.style.zIndex=++zb;n.classList.add('on');setTimeout(()=>bgs.forEach((b,k)=>{if(k!=i&&(+b.style.zIndex||0)<zb)b.classList.remove('on')}),750)};
 bg(0);
 let quiet=false,ended=false,ready=false,raf=0,lt=0,P=[],amb='110,230,255';
@@ -1019,7 +1019,7 @@ let LASTMSG='',TOASTT=0;function toastCheck(){const m=G.msg||'';if(m&&m!==LASTMS
 function setView(cx,cy,vw){const mp=document.getElementById('map');if(mp._gb){mp._gb=null;mp.style.transform='';mp.style.willChange='';mp.classList.remove('gz')}const W0=mp.clientWidth||360,H0=mp.clientHeight||500,asp=W0/H0;G.vcur=[cx,cy,vw];let dx=0,dy=0;try{const I=insets();dx=((W0-I.rt)/2-W0/2);dy=((I.t+(H0-I.bt))/2-H0/2)}catch(e){}const k=vw/W0;mp.setAttribute('viewBox',(cx-vw/2-dx*k)+' '+(cy-vw/asp/2-dy*k)+' '+vw+' '+(vw/asp))}
 function setView_old(cx,cy,vw){const mp=document.getElementById('map'),asp=((mp.clientWidth)||360)/((mp.clientHeight)||500);G.vcur=[cx,cy,vw];mp.setAttribute('viewBox',(cx-vw/2)+' '+(cy-vw/asp/2)+' '+vw+' '+(vw/asp))}
 /*SV_BEGIN*/
-const APPV='v103';
+const APPV='v104';
 const SKEY='aeterna_save_v1',SK2='aeterna_saves_v2';
 const svRead=()=>{try{const t=localStorage.getItem(SK2),o=t?JSON.parse(t):null;if(o&&Array.isArray(o.s))return o}catch(e){}return {s:[]}};
 const svWrite=o=>{try{localStorage.setItem(SK2,JSON.stringify(o));return true}catch(e){return false}};
