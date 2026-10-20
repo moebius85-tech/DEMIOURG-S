@@ -319,7 +319,7 @@ html.dev-tv #idev span{font-size:15px}
 html.dev-tv{--tvk:1.6}
 html.dev-tv #h{transform:translateX(-50%) scale(var(--tvk));transform-origin:50% 0}
 html.dev-tv #bar{transform:translateX(-50%) scale(var(--tvk));transform-origin:50% 100%}
-html.dev-tv #hand{left:auto;right:calc(44px * var(--tvk) + 24px);bottom:auto;top:calc(var(--hud) + 6px);width:max-content;max-width:260px;transform:scale(var(--tvk));transform-origin:100% 0;flex-direction:column;align-items:stretch;gap:10px;padding:0}
+html.dev-tv #hand{left:auto;right:calc(44px * var(--tvk) + 24px);bottom:auto;top:calc(var(--hud) + 6px);width:max-content;max-width:260px;transform:scale(calc(var(--tvk) * 1.3));transform-origin:100% 0;flex-direction:column;align-items:stretch;gap:10px;padding:0}
 html.dev-tv #hand>*{margin:0}
 html.dev-tv #zb{transform:scale(var(--tvk));transform-origin:100% 0}
 html.dev-tv #ov>div{zoom:var(--tvk);max-height:calc(88vh / var(--tvk))}
@@ -328,7 +328,7 @@ html.dev-tv #tip .tx{font-size:22px;line-height:1.4}
 html.dev-tv #tip .tg{font-size:13px;top:-16px}
 html.dev-tv #tip button{height:48px;min-width:72px;font-size:20px}
 html.dev-tv #tip .td{font-size:15px}
-html.dev-tv button:hover,html.dev-tv [data-a]:hover{filter:brightness(1.2);outline:3px solid #ffd24a;outline-offset:1px}
+html.dev-tv button:hover,html.dev-tv div[data-a]:hover,html.dev-tv span[data-a]:hover{filter:brightness(1.2);outline:3px solid #ffd24a;outline-offset:1px}
 html.dev-tv .kf{outline:4px solid #ffd24a!important;outline-offset:2px;filter:brightness(1.25)}
 html.dev-tv #hand .hx:hover{outline:none}
 </style></head><body><div id="cine"><canvas id="cfx"></canvas><div id="cscan"></div><div id="cvig"></div><div id="cred"></div><div id="ctit"><div class="bn"><div class="k"></div><div class="n"></div></div></div><div id="cflash"></div><div id="cwipe"></div><div id="csub"><div class="cb"><div class="tg"></div><div class="tx"></div></div></div><button id="cskip">SALTA ›</button><button id="cback">‹ INDIETRO</button><div id="cbar"></div><div id="chint">▼ TOCCA</div><div id="cplay">▶ TOCCA PER ATTIVARE L'AUDIO</div><audio id="cnm" preload="none"></audio></div><div id="intro"><canvas id="ic"></canvas><img id="iemb" alt=""><img id="idk" class="ttl" alt="DEMIOURGÓS"><img id="ilt" class="ttl" alt=""><div id="isub">Il Relitto dell’Abisso</div><div id="iflash"></div><div id="iring"></div><div id="ihud"><i></i><i></i><i></i><i></i><b>SEGNALE ANOMALO</b><b>● CANALE APERTO</b></div><div id="itap">TOCCA PER INIZIARE</div><div id="idev"><span>DISPOSITIVO</span><button type="button" data-dv="phone"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></svg>SMARTPHONE</button><button type="button" data-dv="tv"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="4.5" width="19" height="12" rx="1.5"/><path d="M8 20.5h8M12 16.5v4"/></svg>TV / PC</button></div></div><canvas id="fx"></canvas><div id="fl"></div><div id="cv"></div><div id="sc"><div class="glow"></div><img id="scm" alt=""><div class="cap"></div><button class="skip">Salta ▸</button></div>
@@ -1130,7 +1130,7 @@ let LASTMSG='',TOASTT=0;function toastCheck(){const m=G.msg||'';if(m&&m!==LASTMS
 function setView(cx,cy,vw){const mp=document.getElementById('map');if(mp._gb){mp._gb=null;mp.style.transform='';mp.style.willChange='';mp.classList.remove('gz')}const W0=mp.clientWidth||360,H0=mp.clientHeight||500,asp=W0/H0;G.vcur=[cx,cy,vw];let dx=0,dy=0;try{const I=insets();dx=((W0-I.rt)/2-W0/2);dy=((I.t+(H0-I.bt))/2-H0/2)}catch(e){}const k=vw/W0;mp.setAttribute('viewBox',(cx-vw/2-dx*k)+' '+(cy-vw/asp/2-dy*k)+' '+vw+' '+(vw/asp))}
 function setView_old(cx,cy,vw){const mp=document.getElementById('map'),asp=((mp.clientWidth)||360)/((mp.clientHeight)||500);G.vcur=[cx,cy,vw];mp.setAttribute('viewBox',(cx-vw/2)+' '+(cy-vw/asp/2)+' '+vw+' '+(vw/asp))}
 /*SV_BEGIN*/
-const APPV='v118';
+const APPV='v119';
 const SKEY='aeterna_save_v1',SK2='aeterna_saves_v2';
 const svRead=()=>{try{const t=localStorage.getItem(SK2),o=t?JSON.parse(t):null;if(o&&Array.isArray(o.s))return o}catch(e){}return {s:[]}};
 const svWrite=o=>{try{localStorage.setItem(SK2,JSON.stringify(o));return true}catch(e){return false}};
@@ -1215,9 +1215,9 @@ commit=()=>{clearTimeout(ct);ct=0;if(!mp._gb)return;if(G&&G.vcur)setView(G.vcur[
 move=(cx,cy,vw,wx,wy,mx,my)=>{begin();let c=[cx,cy,vw];if(wx!=null){const v=vbF(c),r=mw.getBoundingClientRect(),W0=mp.clientWidth||360,H0=mp.clientHeight||500;c[0]+=wx-((mx-r.left)/W0*v[2]+v[0]);c[1]+=wy-((my-r.top)/H0*v[3]+v[1])}
  G.vcur=c;G.vm='free';G.vc=[c[0],c[1]];G.vz=330/c[2];if(!raf)raf=requestAnimationFrame(apply);clearTimeout(ct);ct=setTimeout(commit,220)};
 const clr=()=>{for(const k in P)delete P[k];dist=0};
-mp.addEventListener('pointerdown',e=>{if(e.isPrimary)clr();P[e.pointerId]=[e.clientX,e.clientY];pd=0;dist=0;try{mp.setPointerCapture(e.pointerId)}catch(x){}});
+mp.addEventListener('pointerdown',e=>{if(e.isPrimary)clr();P[e.pointerId]=[e.clientX,e.clientY];pd=0;dist=0});
 mp.addEventListener('pointermove',e=>{if(!G||!P[e.pointerId]||!G.vcur)return;const ids=Object.keys(P),o=P[e.pointerId],cur=G.vcur,k=cur[2]/(mp.clientWidth||360);
-if(ids.length==1){const dx=e.clientX-o[0],dy=e.clientY-o[1];pd+=Math.abs(dx)+Math.abs(dy);if(pd>10){window._drag=1;move(cur[0]-dx*k,cur[1]-dy*k,cur[2])}P[e.pointerId]=[e.clientX,e.clientY]}
+if(ids.length==1){const dx=e.clientX-o[0],dy=e.clientY-o[1];pd+=Math.abs(dx)+Math.abs(dy);if(pd>(document.documentElement.classList.contains('dev-tv')?26:10)){if(!window._drag){try{mp.setPointerCapture(e.pointerId)}catch(x){}}window._drag=1;move(cur[0]-dx*k,cur[1]-dy*k,cur[2])}P[e.pointerId]=[e.clientX,e.clientY]}
 else if(ids.length>=2){const a0=P[ids[0]],b0=P[ids[1]],mx0=(a0[0]+b0[0])/2,my0=(a0[1]+b0[1])/2;P[e.pointerId]=[e.clientX,e.clientY];const a=P[ids[0]],b=P[ids[1]],dd=Math.hypot(a[0]-b[0],a[1]-b[1]),mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2;
  if(dist>20&&dd>20){begin();const nvw=Math.max(80,Math.min(1200,cur[2]*dist/dd)),v=vbF(cur),r=mw.getBoundingClientRect(),W0=mp.clientWidth||360,H0=mp.clientHeight||500,wx=v[0]+(mx0-r.left)/W0*v[2],wy=v[1]+(my0-r.top)/H0*v[3];window._drag=1;move(cur[0],cur[1],nvw,wx,wy,mx,my)}dist=dd}});
 const up=e=>{delete P[e.pointerId];dist=0;pd=1e3;if(!Object.keys(P).length){clearTimeout(ct);ct=setTimeout(commit,60)}if(window._drag)setTimeout(()=>{window._drag=0},80)};
