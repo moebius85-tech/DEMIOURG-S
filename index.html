@@ -342,7 +342,7 @@ const sh=!!(G&&G.tiles&&Object.values(G.tiles).some(x=>x&&x.tt&&x.id=='TOTEM'+(s
 el.style.setProperty('--tc',T[2]);el.className='';el.style.display='block';
 el.innerHTML='<div class=tpp><div class=tpb><div class=tpz><img class=tpa alt="" src="'+im.src+'"></div><div class=tpv></div><div class=tph></div><div class=tpf0 style="background:radial-gradient(circle,rgba('+T[1]+',.7),rgba('+T[1]+',0) 70%)"></div></div></div>'+
 '<div class=tpt><span class=tpk>Totem '+(s+1)+'</span><div class=tpn>'+T[0]+'</div><div class=tps>Firewall n.'+(s+1)+' · Custode dell\'Enigma</div></div>'+
-'<div class=tpe><div class=tpf><img class=bk alt="" src="hr/eb'+s+'.webp" onerror="this.onerror=null;this.src=AS.bk_en"><img class=fr alt="" src="'+(sh?AS['n'+s]:AS.bk_en)+'"></div></div>'+
+'<div class=tpe><div class=tpf><img class=bk alt="" src="hr/er'+s+'.webp" onerror="this.onerror=null;this.src=AS.bk_en"><img class=fr alt="" src="'+(sh?'hr/ef'+s+'.webp':AS.bk_en)+'" onerror="this.onerror=null;this.src=AS[\'n'+s+'\']"></div></div>'+
 '<div class=tpc></div><div class=tpx>Tocca per continuare</div>';
 const q=x=>el.querySelector(x),at=(ms,f)=>{TM.push(setTimeout(()=>{if(!ended)try{f()}catch(e){}},ms))};
 const k=rev?.45:1;
