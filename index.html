@@ -112,6 +112,8 @@ body{background:var(--bg);color:var(--fg);font:14px/1.35 system-ui,sans-serif;di
 #tp .tpe.fl .tpf{transform:rotateY(0)}
 #tp .tpf img{position:absolute;inset:0;width:100%;height:100%;border-radius:9px;backface-visibility:hidden;-webkit-backface-visibility:hidden;object-fit:cover}
 #tp .tpf img.bk{transform:rotateY(180deg)}
+#tp .tpf img.bk2{opacity:0;transition:opacity .45s}
+#tp .tpe.el .tpf img.bk2{opacity:1}
 #tp .tpc{position:absolute;left:0;right:0;bottom:9%;text-align:center;pointer-events:none;font:800 13px system-ui;letter-spacing:2.5px;color:#fff;text-shadow:0 2px 8px #000,0 0 14px #000;opacity:0;transition:opacity .6s;text-transform:uppercase;padding:0 16px}
 #tp .tpc.in{opacity:1}
 #tp .tpx{position:absolute;left:0;right:0;bottom:3.6%;text-align:center;color:#cfe;font:600 11px system-ui;letter-spacing:2px;opacity:0;transition:opacity .5s;text-transform:uppercase;text-shadow:0 1px 4px #000}
@@ -342,11 +344,11 @@ const sh=!!(G&&G.tiles&&Object.values(G.tiles).some(x=>x&&x.tt&&x.id=='TOTEM'+(s
 el.style.setProperty('--tc',T[2]);el.className='';el.style.display='block';
 el.innerHTML='<div class=tpp><div class=tpb><div class=tpz><img class=tpa alt="" src="'+im.src+'"></div><div class=tpv></div><div class=tph></div><div class=tpf0 style="background:radial-gradient(circle,rgba('+T[1]+',.7),rgba('+T[1]+',0) 70%)"></div></div></div>'+
 '<div class=tpt><span class=tpk>Totem '+(s+1)+'</span><div class=tpn>'+T[0]+'</div><div class=tps>Firewall n.'+(s+1)+' · Custode dell\'Enigma</div></div>'+
-'<div class=tpe><div class=tpf><img class=bk alt="" src="'+AS.bk_en+'"><img alt="" src="'+(sh?AS['n'+s]:AS.bk_en)+'"></div></div>'+
+'<div class=tpe><div class=tpf><img class=bk alt="" src="hr/en_a.webp" onerror="this.onerror=null;this.src=AS.bk_en"><img class=\"bk bk2\" alt="" src="hr/en_b.webp" onerror="this.style.display=\'none\'"><img class=fr alt="" src="'+(sh?AS['n'+s]:AS.bk_en)+'"></div></div>'+
 '<div class=tpc></div><div class=tpx>Tocca per continuare</div>';
 const q=x=>el.querySelector(x),at=(ms,f)=>{TM.push(setTimeout(()=>{if(!ended)try{f()}catch(e){}},ms))};
 const k=rev?.45:1;
-const fin=()=>{q('.tpk').classList.add('in');q('.tpn').classList.add('in');q('.tps').classList.add('in');el.classList.add('dim');q('.tpe').classList.add('in');if(sh)q('.tpe').classList.add('fl');q('.tpc').classList.add('in');q('.tpx').classList.add('in');ready=true};
+const fin=()=>{if(sh)q('.tpe').classList.add('el');q('.tpk').classList.add('in');q('.tpn').classList.add('in');q('.tps').classList.add('in');el.classList.add('dim');q('.tpe').classList.add('in');if(sh)q('.tpe').classList.add('fl');q('.tpc').classList.add('in');q('.tpx').classList.add('in');ready=true};
 const cap=sh?(rev?'Carta Enigma associata':'Carta Enigma associata a questo Totem'):'Carta Enigma ancora coperta · elettrifica il Totem';
 q('.tpc').textContent=cap;
 snd('click');flash(T[1]);
@@ -354,8 +356,9 @@ at(300*k,()=>{q('.tpk').classList.add('in');snd('hit');q('.tpf0').classList.add(
 at(900*k,()=>{q('.tpn').classList.add('in');snd('kill');try{navigator.vibrate&&navigator.vibrate([40,30,60])}catch(e){}});
 at(1700*k,()=>{q('.tps').classList.add('in')});
 at((rev?1500:3300),()=>{el.classList.add('dim');q('.tpe').classList.add('in');snd('click')});
-at((rev?2200:4300),()=>{if(sh){q('.tpe').classList.add('fl');snd('win');flash(T[1])}q('.tpc').classList.add('in')});
-at((rev?2900:5400),()=>{q('.tpx').classList.add('in');ready=true});
+at((rev?1850:3900),()=>{if(sh){q('.tpe').classList.add('el');snd('hit');flash(T[1])}});
+at((rev?2300:4600),()=>{if(sh){q('.tpe').classList.add('fl');snd('win');flash(T[1])}q('.tpc').classList.add('in')});
+at((rev?3100:5700),()=>{q('.tpx').classList.add('in');ready=true});
 const end=()=>{if(ended)return;ended=true;TM.forEach(clearTimeout);unl();el.style.display='none';el.innerHTML='';TPB=0;done()};
 el.onclick=e=>{if(ended)return;if(rev&&(!rel||Date.now()-relAt<350))return;if(!rev&&Date.now()-t0<500)return;if(ready){end();return}TM.forEach(clearTimeout);TM=[];fin()}})}catch(e){TPB=0;try{done()}catch(x){}}}
 /*TP_END*/
@@ -676,7 +679,7 @@ const ovE=document.getElementById('ov'),ovD=ovE&&ovE.firstElementChild,ovOn=ovE&
 const gl=el.querySelector('.glow');gl.style.top=(top-hh*0.05)+'px';gl.style.height=(hh*1.1)+'px';gl.style.left=(lf+wd*0.12)+'px';gl.style.right=(lf+wd*0.12)+'px';gl.style.display='none';
 const nm=w&&w.l!=null?LVN[w.l]:(w&&CH[w.i]?CH[w.i].n:''),T={dmg:['#ff8f86','subisce danno'],stress:['#c9a0ff','è sotto Stress'],down:['#ff5a4d','è a terra: ferita mortale!'],atk:['#7ffff0','attacca'],mdie:['#ffd24a','sconfitto!']}[bk];
 const cp=el.querySelector('.cap');cp.style.top=(top+hh-8)+'px';cp.innerHTML='<span style="color:'+T[0]+'">'+nm+'</span> <span style="font-weight:500;font-size:13px;color:#dff">'+T[1]+'</span>';
-const end=()=>{clearTimeout(CTM);clearTimeout(window._clw);clearTimeout(window._cht);el.style.display='none';im.removeAttribute('src');CBZ=0;if(w&&w.q!=null)setTimeout(()=>pingTile(w.q,w.r),150);setTimeout(cNext,w&&w.q!=null?1700:100)};let go=0;const run=()=>{if(go)return;go=1;clearTimeout(window._clw);el.style.display='block';if(a.h!=null){const hk=bk;window._cht=setTimeout(()=>{if(!CBZ)return;if(hk=='dmg'||hk=='down'||hk=='mdie')shake();flash({dmg:'255,70,50',down:'255,60,50',atk:'110,230,255',mdie:'255,200,90'}[hk]||'255,255,255');snd(hk=='atk'?'kill':hk=='mdie'?'kill':'growl')},a.h)}CTM=setTimeout(end,a.ms+900)};im.onload=()=>DEC(im).then(run);im.onerror=end;im.src=fu(a.u);window._clw=setTimeout(()=>{if(!go)end()},30000);el.onclick=end}catch(e){CBZ=0;}}
+const end=()=>{clearTimeout(CTM);clearTimeout(window._clw);clearTimeout(window._cht);el.style.display='none';im.removeAttribute('src');CBZ=0;if(w&&w.q!=null)setTimeout(()=>pingTile(w.q,w.r),150);setTimeout(cNext,w&&w.q!=null?1700:100)};let go=0;const run=()=>{if(go)return;go=1;clearTimeout(window._clw);el.style.display='block';if(a.h!=null){const hk=bk;window._cht=setTimeout(()=>{if(!CBZ)return;if(hk=='dmg'||hk=='down'||hk=='mdie')shake();flash({dmg:'255,70,50',down:'255,60,50',atk:'110,230,255',mdie:'255,200,90'}[hk]||'255,255,255');snd(hk=='atk'?'kill':hk=='mdie'?'kill':'growl')},a.h)}CTM=setTimeout(end,a.ms+900)};if(o.vid)im.onloadeddata=()=>run();else im.onload=()=>DEC(im).then(run);im.onerror=end;im.src=fu(a.u);window._clw=setTimeout(()=>{if(!go)end()},30000);el.onclick=end}catch(e){CBZ=0;}}
 (function(){const go=()=>{for(const k in MA)['full','short'].forEach(w=>{const o=MA[k][w];if(o._l)return;o._l=1;fetch(o.u).then(r=>r.ok?r.blob():Promise.reject()).then(b=>{o.u=URL.createObjectURL(b);const i=new Image();i.src=o.u;(window._ck=window._ck||[]).push(i)}).catch(()=>{})})};try{}catch(e){}})();const animFor=m=>MA[m.l+'_'+m.c]||(()=>{const P=/*MP_BEGIN*/["1_0", "1_1", "1_2", "1_3", "1_5", "2_2", "2_3", "3_0", "3_1", "3_4", "3_5"]/*MP_END*/;return MA[P[Math.floor(Math.random()*P.length)]]})();let SCT=[];
 function preloadScene(){}
 function scEnd(done){SCT.forEach(clearTimeout);SCT=[];const sc=document.getElementById('sc');if(sc)sc.style.display='none';const im=document.getElementById('scm');if(im)im.removeAttribute('src');if(done)done()}
@@ -1089,7 +1092,7 @@ let LASTMSG='',TOASTT=0;function toastCheck(){const m=G.msg||'';if(m&&m!==LASTMS
 function setView(cx,cy,vw){const mp=document.getElementById('map');if(mp._gb){mp._gb=null;mp.style.transform='';mp.style.willChange='';mp.classList.remove('gz')}const W0=mp.clientWidth||360,H0=mp.clientHeight||500,asp=W0/H0;G.vcur=[cx,cy,vw];let dx=0,dy=0;try{const I=insets();dx=((W0-I.rt)/2-W0/2);dy=((I.t+(H0-I.bt))/2-H0/2)}catch(e){}const k=vw/W0;mp.setAttribute('viewBox',(cx-vw/2-dx*k)+' '+(cy-vw/asp/2-dy*k)+' '+vw+' '+(vw/asp))}
 function setView_old(cx,cy,vw){const mp=document.getElementById('map'),asp=((mp.clientWidth)||360)/((mp.clientHeight)||500);G.vcur=[cx,cy,vw];mp.setAttribute('viewBox',(cx-vw/2)+' '+(cy-vw/asp/2)+' '+vw+' '+(vw/asp))}
 /*SV_BEGIN*/
-const APPV='v110';
+const APPV='v112';
 const SKEY='aeterna_save_v1',SK2='aeterna_saves_v2';
 const svRead=()=>{try{const t=localStorage.getItem(SK2),o=t?JSON.parse(t):null;if(o&&Array.isArray(o.s))return o}catch(e){}return {s:[]}};
 const svWrite=o=>{try{localStorage.setItem(SK2,JSON.stringify(o));return true}catch(e){return false}};
