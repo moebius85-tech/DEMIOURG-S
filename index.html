@@ -196,6 +196,13 @@ button.go{box-shadow:0 0 12px rgba(63,224,197,.4),inset 0 1px 0 rgba(255,255,255
 @keyframes cvland{0%{transform:scale(1.5) rotate(20deg)}100%{transform:none}}
 #cv .cvl{max-width:min(92vw,460px);font-size:14px;line-height:1.35;color:#e6fbff}#cv .cvl p{margin:3px 0;animation:capin .45s ease both}
 #cv .cvh{font-size:11px;opacity:0;color:#9bb;animation:tapb 1.6s 1.2s infinite}
+#hr{position:fixed;inset:0;z-index:13;overflow:hidden;background:radial-gradient(120% 90% at 50% 50%,rgba(20,0,0,.55),rgba(0,0,0,.93));touch-action:manipulation}
+#hr .hv{position:absolute;inset:0;background:radial-gradient(90% 70% at 50% 50%,transparent 45%,rgba(255,40,30,.38));animation:hrv .5s ease-in-out infinite alternate}
+@keyframes hrv{from{opacity:.45}to{opacity:1}}
+#hr .hb{position:absolute;left:0;height:3px;border-radius:2px;background:linear-gradient(to right,transparent,rgba(255,255,255,.7),rgba(255,230,200,.95));will-change:transform}
+#hr .hp{position:absolute;left:50%;top:42%;margin-left:var(--hw-);will-change:transform;filter:drop-shadow(0 0 18px rgba(255,70,50,.55)) drop-shadow(0 6px 10px rgba(0,0,0,.8))}
+#hr .hn{position:absolute;left:0;right:0;top:calc(42% + var(--hh));text-align:center;font:700 22px/1.1 Rajdhani,system-ui,sans-serif;letter-spacing:3px;text-transform:uppercase;color:#fff;text-shadow:0 0 12px rgba(255,80,60,.9),0 2px 0 #000;opacity:0}
+#hr .hn small{display:block;margin-top:4px;font-size:13px;letter-spacing:4px;color:#ffb27a}
 #sc{position:fixed;inset:0;z-index:12;display:none;isolation:isolate;background:radial-gradient(120% 90% at 50% 50%,rgba(0,0,0,.62),rgba(0,0,0,.92))}
 #sc .glow{position:absolute;left:0;right:0;border-radius:50%;background:radial-gradient(closest-side,rgba(255,120,50,.38),rgba(255,90,30,.12) 60%,transparent 100%);filter:blur(6px);pointer-events:none}
 #sc img{position:absolute;left:0;width:100vw;pointer-events:none;filter:drop-shadow(0 0 12px rgba(255,190,130,.75)) drop-shadow(0 0 28px rgba(255,120,50,.45)) brightness(1.18) contrast(1.06) saturate(1.08)}
@@ -727,9 +734,31 @@ const end=()=>{clearTimeout(CTM);clearTimeout(window._clw);clearTimeout(window._
 (function(){const go=()=>{for(const k in MA)['full','short'].forEach(w=>{const o=MA[k][w];if(o._l)return;o._l=1;fetch(o.u).then(r=>r.ok?r.blob():Promise.reject()).then(b=>{o.u=URL.createObjectURL(b);const i=new Image();i.src=o.u;(window._ck=window._ck||[]).push(i)}).catch(()=>{})})};try{}catch(e){}})();const animFor=m=>MA[m.l+'_'+m.c]||(()=>{const P=/*MP_BEGIN*/["1_0", "1_1", "1_2", "1_3", "1_5", "2_0", "2_2", "2_3", "3_0", "3_1", "3_2", "3_4", "3_5"]/*MP_END*/;return MA[P[Math.floor(Math.random()*P.length)]]})();let SCT=[];
 function preloadScene(){}
 function scEnd(done){SCT.forEach(clearTimeout);SCT=[];const sc=document.getElementById('sc');if(sc)sc.style.display='none';const im=document.getElementById('scm');if(im)im.removeAttribute('src');if(done)done()}
+const HPR=[];/* eroi con ritratto dedicato, es. ['paramedico'] */
+function heroRun(list,done){if(!fxOn||document.getElementById('hr')){done();return}
+const hs=list.slice(0,3),extra=list.length-hs.length,root=document.createElement('div');root.id='hr';
+const W=Math.min(innerWidth*.94,560),pw=Math.round(W),ph=Math.round(pw*505/900);
+root.style.setProperty('--hw-',(-pw/2)+'px');root.style.setProperty('--hh',(ph/2+6)+'px');
+root.innerHTML='<div class=hv></div>';document.body.appendChild(root);
+let dead=false,tm=[];const fin=()=>{if(dead)return;dead=true;tm.forEach(clearTimeout);try{root.remove()}catch(e){}done()};
+root.onclick=fin;
+const bars=(ms)=>{for(let i=0;i<16;i++){const b=document.createElement('div');b.className='hb';b.style.top=(8+Math.random()*84)+'%';b.style.width=(30+Math.random()*60)+'vw';b.style.opacity=.35+Math.random()*.6;root.appendChild(b);const d=Math.random()*ms*.5;try{b.animate([{transform:'translateX(-110vw)'},{transform:'translateX(130vw)'}],{duration:ms*.5,delay:d,easing:'cubic-bezier(.3,.1,.6,1)',fill:'both'}).onfinish=()=>b.remove()}catch(e){b.remove()}}};
+const one=(k,first,next)=>{const i=hs[k],g='hr/ritratto_generico.webp',u=HPR.indexOf(CH[i].k)>=0?'hr/ritratto_'+CH[i].k+'.webp':g;
+const im=new Image();im.className='hp';im.width=pw;im.height=ph;im.alt='';im.draggable=false;
+let tried=0;im.onerror=()=>{if(tried++){fin();return}im.src=fu(g)};
+im.onload=()=>{if(dead)return;const T=first?1350:1000;root.appendChild(im);
+const nm=document.createElement('div');nm.className='hn';nm.innerHTML='P'+(i+1)+' · '+CH[i].n+'<small>sotto attacco'+(extra>0&&k==hs.length-1?' · +'+extra+' altri':'')+'</small>';root.appendChild(nm);
+try{im.animate([{transform:'translateX(-115vw) rotate(-5deg) scale(.92)',offset:0},{transform:'translateX(0) rotate(0) scale(1.04)',offset:.3,easing:'linear'},{transform:'translateX(5vw) rotate(.5deg) scale(1.08)',offset:.72,easing:'cubic-bezier(.6,0,1,.5)'},{transform:'translateX(118vw) rotate(4deg) scale(1)',offset:1}],{duration:T,easing:'cubic-bezier(.12,.85,.3,1)',fill:'both'});
+nm.animate([{opacity:0,transform:'scale(1.5)',offset:0},{opacity:0,transform:'scale(1.5)',offset:.2},{opacity:1,transform:'scale(1)',offset:.34},{opacity:1,offset:.7},{opacity:0,offset:.88},{opacity:0,offset:1}],{duration:T,fill:'both'})}catch(e){}
+bars(T);snd(first?'card':'miss');
+tm.push(setTimeout(()=>{if(dead)return;im.remove();nm.remove();next()},T-40))};
+im.src=fu(u)};
+const step=k=>{if(dead)return;if(k>=hs.length){tm.push(setTimeout(fin,60));return}one(k,k==0,()=>step(k+1))};
+step(0);tm.push(setTimeout(fin,6000))}
 function playScene(info,done){const sc=document.getElementById('sc');if(!sc||!fxOn||!info){done();return}
 if((uiBusy()||CBZ)&&(info._w=(info._w||0)+1)<160){setTimeout(()=>playScene(info,done),250);return}
 if(!G.cmD&&window.cineOnce){G.cmD=1;cineOnce('m',()=>playScene(info,done));return}
+if(info.hs&&info.hs.length&&!info._e){info._e=1;heroRun(info.hs,()=>playScene(info,done));return}
 const A=animFor(info.m),key=info.m.l+'_'+info.m.c;G.sm=G.sm||{};const first=!G.sm[key];G.sm[key]=1;const a=A.full;
 const hh=Math.round(innerWidth*0.75),top=Math.round((innerHeight-hh)/2),old=document.getElementById('scm'),im=document.createElement('img');im.id='scm';im.alt='';im.style.top=top+'px';old.replaceWith(im);
 const gl=sc.querySelector('.glow');gl.style.top=(top+hh*0.35)+'px';gl.style.height=(innerWidth*0.62)+'px';sc.querySelector('.cap').style.top=(top+hh+2)+'px';
@@ -889,10 +918,10 @@ else if(v==8){Rl(2);al.forEach(x=>Fx('heal',x.q,x.r,'-2 Stress'));L.push('Stress
 if(!E.still)for(let s=0;s<E.mv;s++)G.mons.forEach(m=>{if(!stn(m))stepMon(m,E)});
 if(!E.still)for(const k in G.tiles){if(G.tiles[k].gv){const m=G.mons.find(x=>x.l<=2&&K(x.q,x.r)==k&&!stn(x));if(m){G.mons.splice(G.mons.indexOf(m),1);const[q,r]=k.split(',').map(Number);Fx('kill',q,r);clip('mdie',m);L.push('Il Guardiano di Vetro distrugge un mostro che entrava in una tessera protetta.')}}}
 if(!E.still){const by={};G.mons.filter(m=>m.l<4&&!stn(m)).forEach(m=>{const tl=G.tiles[K(m.q,m.r)];if(!tl||tl.sn)return;if(alive().some(x=>x.q==m.q&&x.r==m.r))(by[K(m.q,m.r)]=by[K(m.q,m.r)]||[]).push(m)});
-for(const k in by){const ms=by[k],on=alive().filter(x=>x.q==ms[0].q&&x.r==ms[0].r);{const top=ms.reduce((a,b)=>b.l>a.l?b:a,ms[0]);if(!scn||top.l>scn.m.l)scn={m:top,names:on.map(x=>CH[x.i].n),n:ms.length}}let bonus=E.pack&&ms.length>=2?1:0;const pr={};ms.forEach(m=>{if(m.pr&&G.en<=m.pe)pr[m.pr]=(pr[m.pr]||0)+1});if(Object.values(pr).some(n=>n>=2))bonus++;
+for(const k in by){const ms=by[k],on=alive().filter(x=>x.q==ms[0].q&&x.r==ms[0].r);{const top=ms.reduce((a,b)=>b.l>a.l?b:a,ms[0]);if(!scn||top.l>scn.m.l)scn={m:top,names:on.map(x=>CH[x.i].n),hs:on.map(x=>x.i),n:ms.length}}let bonus=E.pack&&ms.length>=2?1:0;const pr={};ms.forEach(m=>{if(m.pr&&G.en<=m.pe)pr[m.pr]=(pr[m.pr]||0)+1});if(Object.values(pr).some(n=>n>=2))bonus++;
 ms.forEach(m=>{m.rv=1;CD.push(mc(m,110));const ig=!!(m.dm2&&G.en<=m.dm2),d=ig||m.l==3?2:1;on.forEach(x=>dmg(x,d,ig,m));L.push('Un mostro di Livello '+['','I','II','III'][m.l]+' attacca '+on.map(x=>CH[x.i].n).join(', ')+' ('+d+' PV'+(ig?', inaggirabili':'')+').')});
 if(bonus){on.forEach(x=>dmg(x,bonus,1));L.push('Attacco coordinato: +'+bonus+' Danno a chi è sulla tessera.')}}
-G.mons.filter(m=>m.l==4&&!stn(m)).forEach(m=>{const on=alive().filter(x=>x.q==m.q&&x.r==m.r);if(!scn&&on.length)scn={m,names:on.map(x=>CH[x.i].n),n:1};gEff(m,L,CD)})}
+G.mons.filter(m=>m.l==4&&!stn(m)).forEach(m=>{const on=alive().filter(x=>x.q==m.q&&x.r==m.r);if(!scn&&on.length)scn={m,names:on.map(x=>CH[x.i].n),hs:on.map(x=>x.i),n:1};gEff(m,L,CD)})}
 G.mons.forEach(m=>{m.stun=0;if(m.su>0)m.su--});if(G.decoy&&(G.en||0)>=G.decoyU){G.eco[G.decoy]=Math.max(0,(G.eco[G.decoy]||0)-1);G.decoy=null}
 G.P.forEach(p=>{if(p.hp<=0&&!p.dn){p.dn=1;L.push(CH[p.i].n+' è a terra.')}if(p.hp>0)p.dn=0});
 const dn=G.P.filter(p=>p.hp<=0).length;if(dn){G.P.forEach(p=>{if(p.hp>0)stIn(p,dn)});L.push('Trauma: +'+dn+' Stress ai compagni in piedi.')}
@@ -1139,7 +1168,7 @@ let LASTMSG='',TOASTT=0;function toastCheck(){const m=G.msg||'';if(m&&m!==LASTMS
 function setView(cx,cy,vw){const mp=document.getElementById('map');if(mp._gb){mp._gb=null;mp.style.transform='';mp.style.willChange='';mp.classList.remove('gz')}const W0=mp.clientWidth||360,H0=mp.clientHeight||500,asp=W0/H0;G.vcur=[cx,cy,vw];let dx=0,dy=0;try{const I=insets();dx=((W0-I.rt)/2-W0/2);dy=((I.t+(H0-I.bt))/2-H0/2)}catch(e){}const k=vw/W0;mp.setAttribute('viewBox',(cx-vw/2-dx*k)+' '+(cy-vw/asp/2-dy*k)+' '+vw+' '+(vw/asp))}
 function setView_old(cx,cy,vw){const mp=document.getElementById('map'),asp=((mp.clientWidth)||360)/((mp.clientHeight)||500);G.vcur=[cx,cy,vw];mp.setAttribute('viewBox',(cx-vw/2)+' '+(cy-vw/asp/2)+' '+vw+' '+(vw/asp))}
 /*SV_BEGIN*/
-const APPV='v149';
+const APPV='v150';
 const SKEY='aeterna_save_v1',SK2='aeterna_saves_v2';
 const svRead=()=>{try{const t=localStorage.getItem(SK2),o=t?JSON.parse(t):null;if(o&&Array.isArray(o.s))return o}catch(e){}return {s:[]}};
 const svWrite=o=>{try{localStorage.setItem(SK2,JSON.stringify(o));return true}catch(e){return false}};
