@@ -734,7 +734,7 @@ const end=()=>{clearTimeout(CTM);clearTimeout(window._clw);clearTimeout(window._
 (function(){const go=()=>{for(const k in MA)['full','short'].forEach(w=>{const o=MA[k][w];if(o._l)return;o._l=1;fetch(o.u).then(r=>r.ok?r.blob():Promise.reject()).then(b=>{o.u=URL.createObjectURL(b);const i=new Image();i.src=o.u;(window._ck=window._ck||[]).push(i)}).catch(()=>{})})};try{}catch(e){}})();const animFor=m=>MA[m.l+'_'+m.c]||(()=>{const P=/*MP_BEGIN*/["1_0", "1_1", "1_2", "1_3", "1_5", "2_0", "2_2", "2_3", "3_0", "3_1", "3_2", "3_4", "3_5"]/*MP_END*/;return MA[P[Math.floor(Math.random()*P.length)]]})();let SCT=[];
 function preloadScene(){}
 function scEnd(done){SCT.forEach(clearTimeout);SCT=[];const sc=document.getElementById('sc');if(sc)sc.style.display='none';const im=document.getElementById('scm');if(im)im.removeAttribute('src');if(done)done()}
-const HFACE={};/* verso in cui guarda il ritratto: 'R' = destra; default sinistra. Il movimento e' opposto allo sguardo */
+const HFACE={};/* verso in cui guarda il ritratto: 'R' = destra (default, anche il generico), 'L' = sinistra. Il movimento e' opposto allo sguardo */
 const HPR=[];/* eroi con ritratto dedicato, es. ['paramedico'] */
 function heroRun(list,done){if(!fxOn||document.getElementById('hr')){done();return}
 const hs=list.slice(0,3),extra=list.length-hs.length,root=document.createElement('div');root.id='hr';
@@ -743,11 +743,11 @@ root.style.setProperty('--hw-',(-pw/2)+'px');root.style.setProperty('--hh',(ph+6
 root.innerHTML='<div class=hv></div>';document.body.appendChild(root);
 let dead=false,tm=[];const fin=()=>{if(dead)return;dead=true;tm.forEach(clearTimeout);try{root.remove()}catch(e){}done()};
 root.onclick=fin;
-const bars=(ms,dir)=>{for(let i=0;i<16;i++){const b=document.createElement('div');b.className='hb';b.style.top=(8+Math.random()*84)+'%';b.style.width=(30+Math.random()*60)+'vw';b.style.opacity=.35+Math.random()*.6;root.appendChild(b);const d=Math.random()*ms*.5;try{b.animate([{transform:'translateX('+(-110*dir)+'vw)'},{transform:'translateX('+(130*dir)+'vw)'}],{duration:ms*.5,delay:d,easing:'cubic-bezier(.3,.1,.6,1)',fill:'both'}).onfinish=()=>b.remove()}catch(e){b.remove()}}};
+const bars=(ms,dir)=>{for(let i=0;i<16;i++){const b=document.createElement('div');b.className='hb';b.style.top=(8+Math.random()*84)+'%';b.style.width=(30+Math.random()*60)+'vw';b.style.opacity=.35+Math.random()*.6;root.appendChild(b);const d=Math.random()*ms*.5;try{b.animate([{transform:'translateX('+(-110*dir)+'vw) scaleX('+dir+')'},{transform:'translateX('+(130*dir)+'vw) scaleX('+dir+')'}],{duration:ms*.5,delay:d,easing:'cubic-bezier(.3,.1,.6,1)',fill:'both'}).onfinish=()=>b.remove()}catch(e){b.remove()}}};
 const one=(k,first,next)=>{const i=hs[k],g='hr/ritratto_generico.webp',u=HPR.indexOf(CH[i].k)>=0?'hr/ritratto_'+CH[i].k+'.webp':g;
 const im=new Image();im.className='hp';im.width=pw;im.height=ph;im.alt='';im.draggable=false;
 let tried=0;im.onerror=()=>{if(tried++){fin();return}im.src=fu(g)};
-im.onload=()=>{if(dead)return;const T=first?1350:1000,d=(HPR.indexOf(CH[i].k)>=0&&HFACE[CH[i].k]=='R')?-1:1;root.appendChild(im);
+im.onload=()=>{if(dead)return;const T=first?1350:1000,d=((HPR.indexOf(CH[i].k)>=0?HFACE[CH[i].k]:'R')=='L')?1:-1;root.appendChild(im);
 const nm=document.createElement('div');nm.className='hn';nm.innerHTML='P'+(i+1)+' · '+CH[i].n+'<small>sotto attacco'+(extra>0&&k==hs.length-1?' · +'+extra+' altri':'')+'</small>';root.appendChild(nm);
 try{im.animate([{transform:'translateX('+(-115*d)+'vw) rotate('+(-5*d)+'deg) scale(.92)',offset:0},{transform:'translateX(0) rotate(0) scale(1.04)',offset:.3,easing:'linear'},{transform:'translateX('+(5*d)+'vw) rotate('+(.5*d)+'deg) scale(1.08)',offset:.72,easing:'cubic-bezier(.6,0,1,.5)'},{transform:'translateX('+(118*d)+'vw) rotate('+(4*d)+'deg) scale(1)',offset:1}],{duration:T,easing:'cubic-bezier(.12,.85,.3,1)',fill:'both'});
 nm.animate([{opacity:0,transform:'scale(1.5)',offset:0},{opacity:0,transform:'scale(1.5)',offset:.2},{opacity:1,transform:'scale(1)',offset:.34},{opacity:1,offset:.7},{opacity:0,offset:.88},{opacity:0,offset:1}],{duration:T,fill:'both'})}catch(e){}
@@ -1169,7 +1169,7 @@ let LASTMSG='',TOASTT=0;function toastCheck(){const m=G.msg||'';if(m&&m!==LASTMS
 function setView(cx,cy,vw){const mp=document.getElementById('map');if(mp._gb){mp._gb=null;mp.style.transform='';mp.style.willChange='';mp.classList.remove('gz')}const W0=mp.clientWidth||360,H0=mp.clientHeight||500,asp=W0/H0;G.vcur=[cx,cy,vw];let dx=0,dy=0;try{const I=insets();dx=((W0-I.rt)/2-W0/2);dy=((I.t+(H0-I.bt))/2-H0/2)}catch(e){}const k=vw/W0;mp.setAttribute('viewBox',(cx-vw/2-dx*k)+' '+(cy-vw/asp/2-dy*k)+' '+vw+' '+(vw/asp))}
 function setView_old(cx,cy,vw){const mp=document.getElementById('map'),asp=((mp.clientWidth)||360)/((mp.clientHeight)||500);G.vcur=[cx,cy,vw];mp.setAttribute('viewBox',(cx-vw/2)+' '+(cy-vw/asp/2)+' '+vw+' '+(vw/asp))}
 /*SV_BEGIN*/
-const APPV='v151';
+const APPV='v152';
 const SKEY='aeterna_save_v1',SK2='aeterna_saves_v2';
 const svRead=()=>{try{const t=localStorage.getItem(SK2),o=t?JSON.parse(t):null;if(o&&Array.isArray(o.s))return o}catch(e){}return {s:[]}};
 const svWrite=o=>{try{localStorage.setItem(SK2,JSON.stringify(o));return true}catch(e){return false}};
