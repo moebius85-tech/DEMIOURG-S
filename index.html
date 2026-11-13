@@ -1172,7 +1172,7 @@ let LASTMSG='',TOASTT=0;function toastCheck(){const m=G.msg||'';if(m&&m!==LASTMS
 function setView(cx,cy,vw){const mp=document.getElementById('map');if(mp._gb){mp._gb=null;mp.style.transform='';mp.style.willChange='';mp.classList.remove('gz')}const W0=mp.clientWidth||360,H0=mp.clientHeight||500,asp=W0/H0;G.vcur=[cx,cy,vw];let dx=0,dy=0;try{const I=insets();dx=((W0-I.rt)/2-W0/2);dy=((I.t+(H0-I.bt))/2-H0/2)}catch(e){}const k=vw/W0;mp.setAttribute('viewBox',(cx-vw/2-dx*k)+' '+(cy-vw/asp/2-dy*k)+' '+vw+' '+(vw/asp))}
 function setView_old(cx,cy,vw){const mp=document.getElementById('map'),asp=((mp.clientWidth)||360)/((mp.clientHeight)||500);G.vcur=[cx,cy,vw];mp.setAttribute('viewBox',(cx-vw/2)+' '+(cy-vw/asp/2)+' '+vw+' '+(vw/asp))}
 /*SV_BEGIN*/
-const APPV='v174';
+const APPV='v175';
 const SKEY='aeterna_save_v1',SK2='aeterna_saves_v2';
 const svRead=()=>{try{const t=localStorage.getItem(SK2),o=t?JSON.parse(t):null;if(o&&Array.isArray(o.s))return o}catch(e){}return {s:[]}};
 const svWrite=o=>{try{localStorage.setItem(SK2,JSON.stringify(o));return true}catch(e){return false}};
@@ -1849,7 +1849,7 @@ const ic=()=>{B.textContent=window.AUDM&&AUDM.muted?'🔇':'🔊'};
 const pr=document.createElement('div');pr.style.cssText='position:fixed;left:0;top:0;width:0;visibility:hidden;pointer-events:none;height:env(safe-area-inset-top,0px)';document.body.appendChild(pr);
 const place=()=>{const sa=window.__SA!=null?window.__SA:(Math.round(pr.getBoundingClientRect().height)||0);document.documentElement.style.setProperty('--sa',sa+'px');
   const cine=document.getElementById('cine'),intro=document.getElementById('intro');const over=(cine&&getComputedStyle(cine).display!='none')||(intro&&getComputedStyle(intro).display!='none'&&!/menu/.test(intro.className))||['gd','ep'].some(id=>{const e=document.getElementById(id);return e&&getComputedStyle(e).display!='none'});
-  const h=document.getElementById('h'),ec=document.body.classList.contains('ecq');
+  const h=document.getElementById('h'),ec=document.body.classList.contains('ecq');if(h&&ec){const k=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--EQ'))||0;document.body.classList.toggle('ecx',h.getBoundingClientRect().bottom>k+10)}else document.body.classList.remove('ecx');
   if(over){B.style.left='12px';B.style.right='auto';B.style.top='calc(env(safe-area-inset-top,0px) + 14px)'}
   else if(ec&&h&&h.offsetHeight){const r=h.getBoundingClientRect();const cy=(r.top+sa+4+r.bottom-4)/2;B.style.left='auto';B.style.right=(innerWidth>innerHeight&&innerHeight<=520)?'242px':innerWidth<901?'6px':'10px';B.style.top=Math.max(2,Math.round(cy-(B.getBoundingClientRect().height||34)/2))+'px'}
   else{B.style.left='auto';B.style.right='10px';B.style.top='calc(env(safe-area-inset-top,0px) + 4px)'}ic()};
@@ -2170,7 +2170,7 @@ window.__slgTest=()=>{NEWG=1};
 </style>
 <!--ECQ_BEGIN--><style id="ecqcss">
 :root{--R:150px;--EQ:0px;--sa:0px}
-#ecq{--op:0;position:fixed;left:0;top:var(--sa,0px);width:var(--R);height:var(--R);z-index:5;display:none;border-bottom-right-radius:100%;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+#ecq{--op:0;position:fixed;left:0;top:0;width:var(--R);height:var(--R);z-index:5;display:none;border-bottom-right-radius:100%;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;-webkit-user-select:none}
 #ecq.on{display:block}
 #ecq .qc{position:absolute;inset:0;border-bottom-right-radius:100%;overflow:hidden;background:#05090a}
 #ecq .qc img{position:absolute;display:block;max-width:none;width:calc(var(--R)*1.5);height:auto;pointer-events:none}
@@ -2189,9 +2189,9 @@ window.__slgTest=()=>{NEWG=1};
 @keyframes echit{0%{filter:brightness(1)}25%{filter:brightness(2)}100%{filter:brightness(1)}}
 @keyframes ecgl{0%{transform:translate(-3px,1px);filter:blur(.7px)}50%{transform:translate(3px,-1px)}100%{transform:none}}
 @keyframes ectr{25%{transform:translate(1px,-1px)}50%{transform:translate(-1px,1px)}75%{transform:translate(1px,1px)}}
-#ecF{position:fixed;left:0;top:var(--sa,0px);z-index:7;pointer-events:none;display:none}
+#ecF{position:fixed;left:0;top:0;z-index:7;pointer-events:none;display:none}
 body.ecq #ecF{display:block}
-body.ecq #h{isolation:isolate;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;
+body.ecq #h{background:none!important;box-shadow:none!important;border:0!important;isolation:isolate;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;
  left:calc(var(--EQ) + 12px);transform:scale(var(--tvk,1));transform-origin:0 0;margin-left:0;
  width:min(640px,calc((100vw - var(--EQ) - 12px - 34px*var(--tvk,1) - 22px)/var(--tvk,1)));
  min-height:calc((var(--EQ)*.66 + var(--sa,0px))/var(--tvk,1));
@@ -2202,11 +2202,11 @@ body.ecq #h::before{content:'';position:absolute;z-index:-1;top:calc(var(--sa,0p
  background:linear-gradient(180deg,rgba(14,22,25,.88),rgba(10,16,18,.64));backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
  border:1.5px solid rgba(255,calc(150 - 100*var(--ecop,0)),calc(125 - 90*var(--ecop,0)),calc(.55 + .4*var(--ecop,0)));border-left:0;border-radius:0 calc(18px/var(--tvk,1)) calc(18px/var(--tvk,1)) 0;
  box-shadow:0 0 calc(8px + 14px*var(--ecop,0)) rgba(255,60,50,calc(.15 + .45*var(--ecop,0))),inset 0 0 22px rgba(255,60,50,calc(.03 + .1*var(--ecop,0)))}
-body.ecq #h::after{content:'';position:absolute;z-index:-1;top:calc((var(--sa,0px) + var(--EQ))/var(--tvk,1));bottom:4px;left:calc(-1*(var(--EQ) + 12px)/var(--tvk,1));width:calc((var(--EQ)*.55 + 2px)/var(--tvk,1));
+body.ecq #h::after{content:none}body.ecq.ecx #h::after{content:'';position:absolute;z-index:-1;top:calc(var(--EQ)/var(--tvk,1));bottom:4px;left:calc(-1*(var(--EQ) + 12px)/var(--tvk,1));width:calc((var(--EQ)*.55 + 2px)/var(--tvk,1));
  background:linear-gradient(180deg,rgba(14,22,25,.88),rgba(10,16,18,.64));backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-sizing:border-box;
  border:1.5px solid rgba(255,calc(150 - 100*var(--ecop,0)),calc(125 - 90*var(--ecop,0)),calc(.55 + .4*var(--ecop,0)));border-left:0;border-right:0;
  box-shadow:0 0 calc(8px + 14px*var(--ecop,0)) rgba(255,60,50,calc(.15 + .45*var(--ecop,0)))}
-body.ecq::before{content:'';position:fixed;left:0;right:0;top:0;height:calc(var(--sa,0px) + 6px);z-index:3;pointer-events:none;background:linear-gradient(180deg,#05090a 0,#05090a calc(100% - 10px),rgba(5,9,10,0))}
+body.ecq::before{content:'';position:fixed;left:0;right:0;top:0;height:calc(var(--sa,0px) + 14px);z-index:3;pointer-events:none;background:linear-gradient(180deg,rgba(5,9,10,.78) 0,rgba(5,9,10,.5) 55%,rgba(5,9,10,0))}
 body.ecq #h .ib{margin-left:auto}@media (max-width:520px) and (orientation:portrait){body.ecq #h .ib{order:1}body.ecq #h .hud>.chip{order:2}body.ecq #h .hud>.chip:first-child{order:0}}@media (max-width:380px){body.ecq #h .chip{padding:2px 5px;gap:2px}body.ecq #h .pip{width:6px;height:6px}body.ecq #h .pips{gap:2px}}
 @media (max-width:900px){body.ecq #h{transform:none;width:calc(100vw - var(--EQ) - 12px - 46px);min-height:calc(var(--EQ)*.66 + var(--sa,0px));padding:calc(var(--sa,0px) + 8px) 12px 8px 14px}
  body.ecq #h::before{top:calc(var(--sa,0px) + 4px);left:calc(-1*(var(--EQ)*.45 + 12px));border-radius:0 18px 18px 0}}
@@ -2292,7 +2292,7 @@ function ecRender(){const g=GG(),vis=shown();q.classList.toggle('on',vis);docume
   const key=ecDisp+'|'+T();if(key!=lastKey){lastKey=key;paint(0)}}
 /* ---- iride ---- */
 function geom(){const PW=innerWidth,PH=innerHeight,wq=R*1.5,hq=wq*1531/1100,ct=PW/PH>wq/hq,sF=ct?Math.min(PW/wq,PH/hq)*.96:Math.max(PW/wq,PH/hq)*1.1,Lf=(PW-wq*sF)/2,Tf=ct?(PH-hq*sF)/2:-.05*PH;
-  Gm={sa:parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sa'))||0,PW,PH,Rbig:Math.hypot(PW,PH)+10,sF,trx:Lf-sF*(-.385*R),try:Tf-sF*(-.137*R)}}
+  Gm={sa:0,PW,PH,Rbig:Math.hypot(PW,PH)+10,sF,trx:Lf-sF*(-.385*R),try:Tf-sF*(-.137*R)}}
 function setIris(p){Rf=lerp(Gm.Rbig,R,p);I.style.clipPath='circle('+Rf+'px at 0 '+(Gm.sa||0)+'px)';
   const k=Math.pow(p,3.5),sc=lerp(Gm.sF,1,k);GP.style.transform='translate('+lerp(Gm.trx,0,k)+'px,'+lerp(Gm.try,Gm.sa||0,k)+'px) scale('+sc+')';
   const s=$('ecShd');s.style.width=s.style.height=Rf+'px';s.style.top=(Gm.sa||0)+'px';s.style.opacity=p;
