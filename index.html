@@ -1292,7 +1292,7 @@ let LASTMSG='',TOASTT=0,TOASTW=0;setInterval(()=>{try{const t=document.getElemen
 function setView(cx,cy,vw){const mp=document.getElementById('map');if(mp._gb){mp._gb=null;window._mapRst&&window._mapRst()}const W0=mp.clientWidth||360,H0=mp.clientHeight||500,asp=W0/H0;G.vcur=[cx,cy,vw];let dx=0,dy=0;try{const I=insets();dx=((W0-I.rt)/2-W0/2);dy=((I.t+(H0-I.bt))/2-H0/2)}catch(e){}const k=vw/W0;mp.setAttribute('viewBox',(cx-vw/2-dx*k)+' '+(cy-vw/asp/2-dy*k)+' '+vw+' '+(vw/asp))}
 function setView_old(cx,cy,vw){const mp=document.getElementById('map'),asp=((mp.clientWidth)||360)/((mp.clientHeight)||500);G.vcur=[cx,cy,vw];mp.setAttribute('viewBox',(cx-vw/2)+' '+(cy-vw/asp/2)+' '+vw+' '+(vw/asp))}
 /*SV_BEGIN*/
-const APPV='v193';
+const APPV='v194';
 const SKEY='aeterna_save_v1',SK2='aeterna_saves_v2';
 const svRead=()=>{try{const t=localStorage.getItem(SK2),o=t?JSON.parse(t):null;if(o&&Array.isArray(o.s))return o}catch(e){}return {s:[]}};
 const svWrite=o=>{try{localStorage.setItem(SK2,JSON.stringify(o));return true}catch(e){return false}};
@@ -2675,6 +2675,15 @@ CFG.archeologo={name:'ARCHEOLOGO',col:[236,150,66],tagc:[110,230,255],n:20,hiSca
  tag:{A:[null,'LINK 94%','TITANIO'],B:[null,'LEGA TITANIO','EQUIP OK'],C:[null,'ZOOM 12x','PULSE 68']},
  rows:['ID  ARC-02','RUOLO  ARCHEOLOGO','CLASSE  ESPLORAZIONE','PICCONE  TITANIO','TERMINALE  OLOGRAFICO','OCCHIALI  VISORE'],
  ring:' SCANSIONE · ANALISI STRUTTURALE · ARCHEOLOGO · SOGGETTO 02 · PICCONE · RELIQUIE · ',stamp:'IDENTIFICATO · ARCHEOLOGO'};
+CFG.scienziato={name:'SCIENZIATO',col:[96,240,170],tagc:[255,196,80],n:20,hiScale:2,
+ seq:i=>'hr/sci_s'+String(i).padStart(2,'0')+'.webp',hi:'hr/sci_hi.webp',
+ crops:{A:[[295,300,540],[130,150,230],[430,125,190]],B:[[295,395,480],[370,345,230],[400,245,210]],C:[[298,152,250],[300,152,120],[298,152,190]]},
+ ts:CFG.ingegnere.ts,te:CFG.ingegnere.te,
+ foc:{tab:[130,150],drone:[430,125],torch:[370,340],arm:[140,225],eye:[298,150]},
+ lab:{A:['SCANSIONE CORPOREA','CAMPIONE OLOGRAFICO','DRONE DI SUPPORTO · LINK ATTIVO'],B:['ANALISI STRUTTURALE','CAMPIONI · PROVETTE','DRONE · CAMPIONI'],C:['RICONOSCIMENTO FACCIALE','OTTICA · VISORE PROTETTIVO','BIOMETRIA STABILE']},
+ tag:{A:[null,'BIO 99%','QUOTA +1.8m'],B:[null,'3 CAMPIONI','SENS OK'],C:[null,'ZOOM 12x','PULSE 66']},
+ rows:['ID  SCI-01','RUOLO  SCIENZIATO','CLASSE  ANALISI','CAMPIONI  3 ATTIVI','DRONE  ONLINE','TERMINALE  OLOGRAFICO'],
+ ring:' SCANSIONE · ANALISI STRUTTURALE · SCIENZIATO · SOGGETTO 01 · CAMPIONI · DRONE · ',stamp:'IDENTIFICATO · SCIENZIATO'};
 const IMG={};let SYN=null;
 function load(u){return new Promise(r=>{const i=new Image();i.onload=()=>{try{(i.decode?i.decode():Promise.resolve()).catch(()=>{}).then(()=>r(i))}catch(e){r(i)}};i.onerror=()=>r(null);i.src=u})}
 window.scnHas=k=>!!CFG[k];window.scnPreAll=()=>Object.keys(CFG).forEach(k=>window.scnPre(k));
