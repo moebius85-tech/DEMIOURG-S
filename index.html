@@ -1292,7 +1292,7 @@ let LASTMSG='',TOASTT=0,TOASTW=0;setInterval(()=>{try{const t=document.getElemen
 function setView(cx,cy,vw){const mp=document.getElementById('map');if(mp._gb){mp._gb=null;window._mapRst&&window._mapRst()}const W0=mp.clientWidth||360,H0=mp.clientHeight||500,asp=W0/H0;G.vcur=[cx,cy,vw];let dx=0,dy=0;try{const I=insets();dx=((W0-I.rt)/2-W0/2);dy=((I.t+(H0-I.bt))/2-H0/2)}catch(e){}const k=vw/W0;mp.setAttribute('viewBox',(cx-vw/2-dx*k)+' '+(cy-vw/asp/2-dy*k)+' '+vw+' '+(vw/asp))}
 function setView_old(cx,cy,vw){const mp=document.getElementById('map'),asp=((mp.clientWidth)||360)/((mp.clientHeight)||500);G.vcur=[cx,cy,vw];mp.setAttribute('viewBox',(cx-vw/2)+' '+(cy-vw/asp/2)+' '+vw+' '+(vw/asp))}
 /*SV_BEGIN*/
-const APPV='v197';
+const APPV='v198';
 const SKEY='aeterna_save_v1',SK2='aeterna_saves_v2';
 const svRead=()=>{try{const t=localStorage.getItem(SK2),o=t?JSON.parse(t):null;if(o&&Array.isArray(o.s))return o}catch(e){}return {s:[]}};
 const svWrite=o=>{try{localStorage.setItem(SK2,JSON.stringify(o));return true}catch(e){return false}};
@@ -2711,6 +2711,15 @@ CFG.sicurezza={name:'OP. SICUREZZA',col:[78,172,214],tagc:[255,110,84],n:20,hiSc
  tag:{A:[null,'LAMA 100%','VISORE ON'],B:[null,'TUTA OK','SENS OK'],C:[null,'ZOOM 12x','PULSE 52']},
  rows:['ID  SIC-06','RUOLO  OP. SICUREZZA','CLASSE  INFILTR.','LAMA  PRONTA','VISORE  ONLINE','TUTA  ATTIVA'],
  ring:' SCANSIONE · ANALISI STRUTTURALE · OP. SICUREZZA · SOGGETTO 06 · LAMA · VISORE · ',stamp:'IDENTIFICATO · OP. SICUREZZA'};
+/*HQ_BEGIN*/(function(){const P=(k,f,sc,a1,a2,b1,b2,cc,foc)=>{const c=CFG[k];c.hi='hr/'+f+'_hq.webp';c.hiScale=sc;c.crops.A[1]=a1;c.crops.A[2]=a2;c.crops.B[1]=b1;c.crops.B[2]=b2;c.crops.C=[c.crops.C[0],[cc[0],cc[1],120],[cc[0],cc[1],190]];if(foc)c.foc=foc};
+const S=968/580,SA=968/556;
+P('militare','mil',S,[360,282,230],[285,105,190],[282,240,260],[250,425,250],[285,100],{tab:[360,282],drone:[327,48],torch:[282,225],arm:[255,234],eye:[285,100]});
+P('sicurezza','sic',S,[360,365,230],[273,141,190],[264,240,260],[219,198,230],[273,141],{tab:[219,198],drone:[360,365],torch:[264,228],arm:[318,258],eye:[273,138]});
+P('paramedico','par',S,[386,445,230],[280,172,190],[290,255,260],[186,330,230],[280,174],{tab:[386,445],drone:[215,185],torch:[294,249],arm:[186,324],eye:[280,172]});
+P('scienziato','sci',S,[186,185,230],[389,171,190],[345,330,230],[350,250,250],[300,198],{tab:[186,180],drone:[389,171],torch:[345,327],arm:[204,276],eye:[300,198]});
+P('archeologo','arc',SA,[376,195,230],[164,414,210],[170,420,230],[275,330,250],[276,164],{tab:[376,190],drone:[164,414],torch:[192,327],arm:[270,258],eye:[276,162]});
+P('ingegnere','ing',S,[410,300,230],[374,201,190],[165,415,250],[186,216,270],[288,198],{tab:[410,297],drone:[374,201],torch:[165,413],arm:[186,216],eye:[288,198]});
+})();/*HQ_END*/
 const IMG={};let SYN=null;
 function load(u){return new Promise(r=>{const i=new Image();i.onload=()=>{try{(i.decode?i.decode():Promise.resolve()).catch(()=>{}).then(()=>r(i))}catch(e){r(i)}};i.onerror=()=>r(null);i.src=u})}
 window.scnHas=k=>!!CFG[k];window.scnPreAll=()=>Object.keys(CFG).forEach(k=>window.scnPre(k));
