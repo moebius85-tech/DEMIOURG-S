@@ -1438,7 +1438,7 @@ let LASTMSG='',TOASTT=0,TOASTW=0;setInterval(()=>{try{const t=document.getElemen
 function setView(cx,cy,vw){const mp=document.getElementById('map');if(mp._gb){mp._gb=null;window._mapRst&&window._mapRst()}const W0=mp.clientWidth||360,H0=mp.clientHeight||500,asp=W0/H0;G.vcur=[cx,cy,vw];let dx=0,dy=0;try{const I=insets();dx=((W0-I.rt)/2-W0/2);dy=((I.t+(H0-I.bt))/2-H0/2)}catch(e){}const k=vw/W0;mp.setAttribute('viewBox',(cx-vw/2-dx*k)+' '+(cy-vw/asp/2-dy*k)+' '+vw+' '+(vw/asp))}
 function setView_old(cx,cy,vw){const mp=document.getElementById('map'),asp=((mp.clientWidth)||360)/((mp.clientHeight)||500);G.vcur=[cx,cy,vw];mp.setAttribute('viewBox',(cx-vw/2)+' '+(cy-vw/asp/2)+' '+vw+' '+(vw/asp))}
 /*SV_BEGIN*/
-const APPV='v206';
+const APPV='v207';
 const SKEY='aeterna_save_v1',SK2='aeterna_saves_v2';
 const svRead=()=>{try{const t=localStorage.getItem(SK2),o=t?JSON.parse(t):null;if(o&&Array.isArray(o.s))return o}catch(e){}return {s:[]}};
 const svWrite=o=>{try{localStorage.setItem(SK2,JSON.stringify(o));return true}catch(e){return false}};
@@ -1483,7 +1483,7 @@ A.svow=()=>svDone(svSave(document.getElementById('svt').value,G._slot));
 
 function render(){if(!G)return;{const m0=document.getElementById('map');if(m0&&m0._gb&&window._mapCommit)window._mapCommit()}window.tipCheck&&tipCheck();const p=cp(),t=G.tiles[K(p.q,p.r)],pr=portal(),pw0=powered();for(const k in G.tiles){const x=G.tiles[k];if(x.tt&&!x.rv&&x.cube&&pw0.has(k)){x.rv=1;enigRv(x);logm('Il Totem si elettrifica: la Carta Enigma si rivela!')}}if(pr.g==6&&!G.pt){G.pt=1;logm('PORTALE COMPLETO: la navicella è assemblata (manca la catena di luce e il Codice).')}
 const pips=(n,mx,c)=>'<span class=pips>'+Array.from({length:mx},(_,i)=>'<i class="pip '+c+(i<n?' on':'')+'"></i>').join('')+'</span>';
-document.getElementById('h').innerHTML='<div class=hud><span class=chip style="border-color:'+COL[p.i]+'"><img src="'+AS['t'+CH[p.i].k]+'" width=20 height=20 style="border-radius:50%"> <b style="color:'+COL[p.i]+'">'+CH[p.i].n+'</b></span><span class=chip title="Punti Azione">⚡ '+pips(p.pa,Math.max(4,p.pa),'')+'</span><span class=chip title="PV">♥ '+pips(Math.max(0,p.hp),p.mx,'hp')+'</span><span class=chip title="Batterie">🔋 '+pips(p.bat,3,'bt')+'</span><span class=chip title="Stress">🧠 '+pips(p.st,10,'st'+(p.st>=5?' t':''))+' '+p.st+(p.toff?' 🔦✘':'')+'</span><button class=ib data-a=info>'+(G.hi?'▴':'▾')+'</button></div><div class=m style="margin-top:2px;font-size:11px">Round <b>'+G.round+'</b> '+(G.dec&&G.dec.length?' · Totem '+G.dec.length+'/6':'')+(pr.pl?' · Navicella '+(pr.core?1+pr.g:0)+'/7':'')+'</div>'+(G.hi?'<div class=party>'+G.P.map(x=>'<span class=chip style="border-color:'+COL[x.i]+(x.i==p.i?';background:rgba(255,255,255,.12)':'')+'">'+CH[x.i].n+' '+(x.hp<=0?'☠':x.hp+'♥')+' · 🧠'+x.st+'</span>').join('')+'</div><div class=lg>'+((G.lg||[]).slice(-7).map(t=>'<div>'+t+'</div>').join('')||'—')+'</div>':'');
+document.getElementById('h').innerHTML='<div class=hv style="--rc:'+COL[p.i]+'"><img src="'+AS['t'+CH[p.i].k]+'" alt=""></div><div class=hud><span class=chip style="border-color:'+COL[p.i]+'"><img src="'+AS['t'+CH[p.i].k]+'" width=20 height=20 style="border-radius:50%"> <b style="color:'+COL[p.i]+'">'+CH[p.i].n+'</b></span><span class=chip title="Punti Azione">⚡ '+pips(p.pa,Math.max(4,p.pa),'')+'</span><span class=chip title="PV">♥ '+pips(Math.max(0,p.hp),p.mx,'hp')+'</span><span class=chip title="Batterie">🔋 '+pips(p.bat,3,'bt')+'</span><span class=chip title="Stress">🧠 '+pips(p.st,10,'st'+(p.st>=5?' t':''))+' '+p.st+(p.toff?' 🔦✘':'')+'</span><button class=ib data-a=info>'+(G.hi?'▴':'▾')+'</button></div><div class=m style="margin-top:2px;font-size:11px"><b class=hvn style="color:'+COL[p.i]+'">'+CH[p.i].n+'</b> · Round <b>'+G.round+'</b> '+(G.dec&&G.dec.length?' · Totem '+G.dec.length+'/6':'')+(pr.pl?' · Navicella '+(pr.core?1+pr.g:0)+'/7':'')+'</div>'+(G.hi?'<div class=party>'+G.P.map(x=>'<span class=chip style="border-color:'+COL[x.i]+(x.i==p.i?';background:rgba(255,255,255,.12)':'')+'">'+CH[x.i].n+' '+(x.hp<=0?'☠':x.hp+'♥')+' · 🧠'+x.st+'</span>').join('')+'</div><div class=lg>'+((G.lg||[]).slice(-7).map(t=>'<div>'+t+'</div>').join('')||'—')+'</div>':'');
 const ks=Object.keys(G.tiles).map(k=>k.split(',').map(Number)),tg=new Set();if(G.mode=='ex')valid(p,p.hand[G.sel],G.rk).forEach(v=>tg.add(K(...v)));
 if(G.mode=='mv')for(let i=0;i<6;i++){const c=conn(p.q,p.r,i);if(c)tg.add(K(...c))}if(G.mode=='cb')tg.add(K(p.q,p.r));if(G.mode=='tr')for(let d=0;d<6;d++)tg.add(K(...nbk(p.q,p.r,d)));const PW=powered();
 const all=ks.concat([...tg].map(k=>k.split(',').map(Number)),G.nf?slots(G.nf.c):[]),xs=all.map(c=>px(...c)[0]),ys=all.map(c=>px(...c)[1]),m=S*1.3;
@@ -2482,6 +2482,20 @@ body.ecq #h .ib{margin-left:auto;position:relative}body.ecq #h .ib::after{conten
  body.ecq #h::before{top:calc(var(--sa,0px) + 4px);left:calc(-1*(var(--EQ) + 12px));border-radius:0 18px 18px 0}}
 @media (max-width:900px) and (max-height:2000px){body.ecq #h{padding-left:10px;padding-right:8px}body.ecq #h .chip{padding:2px 6px;font-size:11px;gap:3px}body.ecq #h .pip{width:7px;height:7px}body.ecq #h .pips{gap:2px}body.ecq #h .sb{width:30px;height:6px}body.ecq #h .hud{column-gap:4px;row-gap:3px}}
 @media (orientation:landscape) and (max-height:520px){body.ecq #h{width:calc(100vw - 236px - var(--EQ) - 12px - 46px)}}
+</style>
+<style id=hvxcss>
+#h .hv{display:none}
+body.ecq #h{--fv:46px}
+body.ecq #h .hv{display:block;position:absolute;z-index:0;left:var(--fv);top:calc(50% + var(--sa,0px)/2);height:min(calc(100% - var(--sa,0px) - 14px),calc(var(--EQ)*.84));aspect-ratio:1;transform:translate(-100%,-50%);border-radius:50%;border:2.5px solid var(--rc);background:#0a1417;box-shadow:0 0 12px color-mix(in srgb,var(--rc) 50%,transparent),inset 0 0 10px #000b;overflow:hidden;pointer-events:none}
+body.ecq #h .hv img{width:100%;height:100%;object-fit:cover;object-position:50% 14%;display:block}
+body.ecq #h .hud>.chip:first-child{display:none}
+body.ecq #h .hud>.ib{margin-left:auto}
+body.ecq #h{padding-left:calc(14px + var(--fv))}
+@media (max-width:470px){body.ecq #h{--fv:34px}body.ecq #h .pips:has(.pip.st){display:grid;grid-template-columns:repeat(5,auto);gap:3px 4px}body.ecq #h .hud>.ib{min-width:38px}}
+@media (max-width:380px){body.ecq #h{--fv:28px;padding-right:6px}body.ecq #h .chip{padding:2px 4px;gap:2px;min-height:26px}body.ecq #h .pip{width:6px;height:6px}body.ecq #h .hud{column-gap:3px}body.ecq #h .hud>.ib{min-width:34px;min-height:28px}}
+@media (orientation:landscape) and (max-height:520px){body.ecq #h{--fv:38px}}
+</style>
+<style>
 #ecIw{position:fixed;inset:0;z-index:11;display:none;pointer-events:none}body.ecio #tp,body.ecio #tip{visibility:hidden}
 #ecIw.on{display:block}
 #ecI{position:absolute;inset:0;background:#030607;clip-path:circle(0px at 0 0);pointer-events:auto;--op:0}
