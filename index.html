@@ -472,6 +472,24 @@ html.dev-tv #hand .hx:hover{outline:none}
 .tn{padding-bottom:max(12px,env(safe-area-inset-bottom,0px))}
 @media (max-width:359px){.tn-lb{font-size:11.5px;letter-spacing:.02em}.tn-sb{font-size:10.5px;letter-spacing:.06em}.tn-v{font-size:22px}.tn-mi{padding:6px 8px}.tn-r1,.tn-r2{gap:5px}.tn-sg{gap:2px}.tn-r1 svg{width:24px;height:24px}.tn{--sw:min(calc(var(--bh)*.588 + 6px),58%)}}
 </style>
+<style id=lgxcss>
+#h .chip{font-size:clamp(13px,3.2vw,15.5px);padding:3px 8px;min-height:30px;gap:5px}
+#h .hud{row-gap:6px}
+#h .pip{width:clamp(8px,2.2vw,11px);height:clamp(8px,2.2vw,11px)}
+#h .pips{gap:2px}
+#h .pip.st{width:clamp(7px,1.9vw,9px);height:clamp(7px,1.9vw,9px)}
+#h .m{font-size:clamp(13px,3.4vw,15px);color:#b9d2d3}
+#h .ib{min-width:44px;min-height:34px;font-size:15px}
+#h .party .chip{font-size:clamp(12.5px,3.2vw,15px)}
+#h .lg{font-size:clamp(13px,3.3vw,15px);color:#e0f1ef}
+#bar button:not(.bcl){font-size:clamp(12.5px,3.3vw,15px);color:#eaf6f4;min-height:clamp(54px,14vw,66px);gap:2px}
+#bar button:not(.bcl) .m{font-size:clamp(11.5px,3vw,13.5px);color:#aac6c8;font-weight:600}
+#bar button:not(.bcl) svg{width:clamp(22px,5.6vw,28px);height:clamp(22px,5.6vw,28px)}
+#bar button:not(.bcl).go{font-size:clamp(15px,4vw,18px);font-weight:700}
+#bar button:not(.bcl).on .m{color:#04352c}
+#bar button.go{color:#04110f}
+#h{padding-right:62px;box-sizing:border-box}
+</style>
 </head><body><div id="cine"><canvas id="cfx"></canvas><div id="cscan"></div><div id="cvig"></div><div id="cred"></div><div id="ctit"><div class="bn"><div class="k"></div><div class="n"></div></div></div><div id="cflash"></div><div id="cwipe"></div><div id="csub"><div class="cb"><div class="tg"></div><div class="tx"></div></div></div><button id="cskip">SALTA ›</button><button id="cback">‹ INDIETRO</button><div id="cbar"></div><div id="chint">▼ TOCCA</div><div id="cplay">▶ TOCCA PER ATTIVARE L'AUDIO</div><audio id="cnm" preload="none"></audio></div><div id="intro"><canvas id="ic"></canvas><img id="iemb" alt=""><img id="idk" class="ttl" alt="DEMIOURGÓS"><img id="ilt" class="ttl" alt=""><div id="isub">Il Relitto dell’Abisso</div><div id="iflash"></div><div id="iring"></div><div id="ihud"><i></i><i></i><i></i><i></i><b>SEGNALE ANOMALO</b><b>● CANALE APERTO</b></div><div id="itap">TOCCA PER INIZIARE</div><div id="idev"><span>DISPOSITIVO</span><button type="button" data-dv="phone"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></svg>SMARTPHONE</button><button type="button" data-dv="tv"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="4.5" width="19" height="12" rx="1.5"/><path d="M8 20.5h8M12 16.5v4"/></svg>TV / PC</button></div></div><canvas id="fx"></canvas><div id="fl"></div><div id="cv"></div><div id="sc"><div class="glow"></div><img id="scm" alt=""><div class="cap"></div><button class="skip">Salta ▸</button></div>
 <div id="h"></div><div id="mw"><svg id="map"></svg><div id="zb"><button data-a=cfg aria-label="Impostazioni"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1"/></svg></button><button data-a=zin aria-label="Ingrandisci"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></button><button data-a=zout aria-label="Riduci"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14"/></svg></button><button data-a=zhero aria-label="Centra"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="6"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button><button data-a=zall aria-label="Tutta la mappa"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div></div><div id="toast"></div><div id="hand"></div><div id="bar"></div><div id="zv" data-a=zvx></div><div id="ov"><div id="ob"></div></div>
 <script>
@@ -1338,7 +1356,7 @@ let LASTMSG='',TOASTT=0,TOASTW=0;setInterval(()=>{try{const t=document.getElemen
 function setView(cx,cy,vw){const mp=document.getElementById('map');if(mp._gb){mp._gb=null;window._mapRst&&window._mapRst()}const W0=mp.clientWidth||360,H0=mp.clientHeight||500,asp=W0/H0;G.vcur=[cx,cy,vw];let dx=0,dy=0;try{const I=insets();dx=((W0-I.rt)/2-W0/2);dy=((I.t+(H0-I.bt))/2-H0/2)}catch(e){}const k=vw/W0;mp.setAttribute('viewBox',(cx-vw/2-dx*k)+' '+(cy-vw/asp/2-dy*k)+' '+vw+' '+(vw/asp))}
 function setView_old(cx,cy,vw){const mp=document.getElementById('map'),asp=((mp.clientWidth)||360)/((mp.clientHeight)||500);G.vcur=[cx,cy,vw];mp.setAttribute('viewBox',(cx-vw/2)+' '+(cy-vw/asp/2)+' '+vw+' '+(vw/asp))}
 /*SV_BEGIN*/
-const APPV='v204';
+const APPV='v205';
 const SKEY='aeterna_save_v1',SK2='aeterna_saves_v2';
 const svRead=()=>{try{const t=localStorage.getItem(SK2),o=t?JSON.parse(t):null;if(o&&Array.isArray(o.s))return o}catch(e){}return {s:[]}};
 const svWrite=o=>{try{localStorage.setItem(SK2,JSON.stringify(o));return true}catch(e){return false}};
