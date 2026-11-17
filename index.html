@@ -1292,7 +1292,7 @@ let LASTMSG='',TOASTT=0,TOASTW=0;setInterval(()=>{try{const t=document.getElemen
 function setView(cx,cy,vw){const mp=document.getElementById('map');if(mp._gb){mp._gb=null;window._mapRst&&window._mapRst()}const W0=mp.clientWidth||360,H0=mp.clientHeight||500,asp=W0/H0;G.vcur=[cx,cy,vw];let dx=0,dy=0;try{const I=insets();dx=((W0-I.rt)/2-W0/2);dy=((I.t+(H0-I.bt))/2-H0/2)}catch(e){}const k=vw/W0;mp.setAttribute('viewBox',(cx-vw/2-dx*k)+' '+(cy-vw/asp/2-dy*k)+' '+vw+' '+(vw/asp))}
 function setView_old(cx,cy,vw){const mp=document.getElementById('map'),asp=((mp.clientWidth)||360)/((mp.clientHeight)||500);G.vcur=[cx,cy,vw];mp.setAttribute('viewBox',(cx-vw/2)+' '+(cy-vw/asp/2)+' '+vw+' '+(vw/asp))}
 /*SV_BEGIN*/
-const APPV='v196';
+const APPV='v197';
 const SKEY='aeterna_save_v1',SK2='aeterna_saves_v2';
 const svRead=()=>{try{const t=localStorage.getItem(SK2),o=t?JSON.parse(t):null;if(o&&Array.isArray(o.s))return o}catch(e){}return {s:[]}};
 const svWrite=o=>{try{localStorage.setItem(SK2,JSON.stringify(o));return true}catch(e){return false}};
@@ -2702,6 +2702,15 @@ CFG.militare={name:'MILITARE',col:[244,174,62],tagc:[110,200,255],n:20,hiScale:2
  tag:{A:[null,'MUNIZ 100%','LINK 97%'],B:[null,'CORAZZA OK','SERVO OK'],C:[null,'ZOOM 12x','PULSE 58']},
  rows:['ID  MIL-04','RUOLO  MILITARE','CLASSE  ARMI','ARMA  PRONTA','CASCO  ONLINE','ESOSC.  ATTIVO'],
  ring:' SCANSIONE · ANALISI STRUTTURALE · MILITARE · SOGGETTO 04 · ARMA · CORAZZA · ',stamp:'IDENTIFICATO · MILITARE'};
+CFG.sicurezza={name:'OP. SICUREZZA',col:[78,172,214],tagc:[255,110,84],n:20,hiScale:2,
+ seq:i=>'hr/sic_s'+String(i).padStart(2,'0')+'.webp',hi:'hr/sic_hi.webp',
+ crops:{A:[[300,330,540],[440,470,230],[290,128,190]],B:[[300,400,480],[290,255,260],[190,140,230]],C:[[290,125,250],[290,125,120],[290,125,190]]},
+ ts:CFG.ingegnere.ts,te:CFG.ingegnere.te,
+ foc:{tab:[185,130],drone:[440,470],torch:[290,250],arm:[360,325],eye:[290,125]},
+ lab:{A:['SCANSIONE CORPOREA','LAMA · FILO ENERGETICO','MASCHERA · VISORE ROSSO'],B:['ANALISI STRUTTURALE','TUTA · CIRCUITI ATTIVI','GUANTO · SENSORI TATTILI'],C:['RICONOSCIMENTO FACCIALE','OTTICA · SGUARDO FISSO','BIOMETRIA STABILE']},
+ tag:{A:[null,'LAMA 100%','VISORE ON'],B:[null,'TUTA OK','SENS OK'],C:[null,'ZOOM 12x','PULSE 52']},
+ rows:['ID  SIC-06','RUOLO  OP. SICUREZZA','CLASSE  INFILTR.','LAMA  PRONTA','VISORE  ONLINE','TUTA  ATTIVA'],
+ ring:' SCANSIONE · ANALISI STRUTTURALE · OP. SICUREZZA · SOGGETTO 06 · LAMA · VISORE · ',stamp:'IDENTIFICATO · OP. SICUREZZA'};
 const IMG={};let SYN=null;
 function load(u){return new Promise(r=>{const i=new Image();i.onload=()=>{try{(i.decode?i.decode():Promise.resolve()).catch(()=>{}).then(()=>r(i))}catch(e){r(i)}};i.onerror=()=>r(null);i.src=u})}
 window.scnHas=k=>!!CFG[k];window.scnPreAll=()=>Object.keys(CFG).forEach(k=>window.scnPre(k));
