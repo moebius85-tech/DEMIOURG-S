@@ -1292,7 +1292,7 @@ let LASTMSG='',TOASTT=0,TOASTW=0;setInterval(()=>{try{const t=document.getElemen
 function setView(cx,cy,vw){const mp=document.getElementById('map');if(mp._gb){mp._gb=null;window._mapRst&&window._mapRst()}const W0=mp.clientWidth||360,H0=mp.clientHeight||500,asp=W0/H0;G.vcur=[cx,cy,vw];let dx=0,dy=0;try{const I=insets();dx=((W0-I.rt)/2-W0/2);dy=((I.t+(H0-I.bt))/2-H0/2)}catch(e){}const k=vw/W0;mp.setAttribute('viewBox',(cx-vw/2-dx*k)+' '+(cy-vw/asp/2-dy*k)+' '+vw+' '+(vw/asp))}
 function setView_old(cx,cy,vw){const mp=document.getElementById('map'),asp=((mp.clientWidth)||360)/((mp.clientHeight)||500);G.vcur=[cx,cy,vw];mp.setAttribute('viewBox',(cx-vw/2)+' '+(cy-vw/asp/2)+' '+vw+' '+(vw/asp))}
 /*SV_BEGIN*/
-const APPV='v195';
+const APPV='v196';
 const SKEY='aeterna_save_v1',SK2='aeterna_saves_v2';
 const svRead=()=>{try{const t=localStorage.getItem(SK2),o=t?JSON.parse(t):null;if(o&&Array.isArray(o.s))return o}catch(e){}return {s:[]}};
 const svWrite=o=>{try{localStorage.setItem(SK2,JSON.stringify(o));return true}catch(e){return false}};
@@ -2693,6 +2693,15 @@ CFG.paramedico={name:'PARAMEDICO',col:[110,225,130],tagc:[255,120,110],n:20,hiSc
  tag:{A:[null,'KIT 100%','LINK 91%'],B:[null,'TRIAGE OK','RINF OK'],C:[null,'ZOOM 12x','PULSE 74']},
  rows:['ID  PAR-05','RUOLO  PARAMEDICO','CLASSE  SOCCORSO','KIT  MEDICO  PRONTO','HEADSET  ONLINE','TRIAGE  ATTIVO'],
  ring:' SCANSIONE · ANALISI STRUTTURALE · PARAMEDICO · SOGGETTO 05 · KIT MEDICO · TRIAGE · ',stamp:'IDENTIFICATO · PARAMEDICO'};
+CFG.militare={name:'MILITARE',col:[244,174,62],tagc:[110,200,255],n:20,hiScale:2,
+ seq:i=>'hr/mil_s'+String(i).padStart(2,'0')+'.webp',hi:'hr/mil_hi.webp',
+ crops:{A:[[300,330,540],[370,320,230],[285,185,190]],B:[[300,400,480],[290,285,260],[300,455,250]],C:[[285,180,250],[285,185,120],[285,180,190]]},
+ ts:CFG.ingegnere.ts,te:CFG.ingegnere.te,
+ foc:{tab:[370,320],drone:[310,180],torch:[300,270],arm:[255,285],eye:[285,182]},
+ lab:{A:['SCANSIONE CORPOREA','ARMA · FUCILE D\'ASSALTO','CASCO · VISORE TATTICO'],B:['ANALISI STRUTTURALE','ARMATURA · TORACE','ESOSCHELETRO · GAMBE'],C:['RICONOSCIMENTO FACCIALE','VISORE · OTTICA','BIOMETRIA STABILE']},
+ tag:{A:[null,'MUNIZ 100%','LINK 97%'],B:[null,'CORAZZA OK','SERVO OK'],C:[null,'ZOOM 12x','PULSE 58']},
+ rows:['ID  MIL-04','RUOLO  MILITARE','CLASSE  ARMI','ARMA  PRONTA','CASCO  ONLINE','ESOSC.  ATTIVO'],
+ ring:' SCANSIONE · ANALISI STRUTTURALE · MILITARE · SOGGETTO 04 · ARMA · CORAZZA · ',stamp:'IDENTIFICATO · MILITARE'};
 const IMG={};let SYN=null;
 function load(u){return new Promise(r=>{const i=new Image();i.onload=()=>{try{(i.decode?i.decode():Promise.resolve()).catch(()=>{}).then(()=>r(i))}catch(e){r(i)}};i.onerror=()=>r(null);i.src=u})}
 window.scnHas=k=>!!CFG[k];window.scnPreAll=()=>Object.keys(CFG).forEach(k=>window.scnPre(k));
